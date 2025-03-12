@@ -1,0 +1,49 @@
+Group,Variable,Value
+Methodology,Event Based,FALSE
+,Archival,FALSE
+Creators 1,Name,Daniel J. Becker
+,Given Name,Daniel J.
+,Family Name,Becker
+,Name Identifier,https://orcid.org/0000-0003-4315-8628
+,Affiliation,"Department of Biology, University of Oklahoma, Norman, OK, USA"
+,Affiliation Identifier,https://ror.org/02aqsxs83
+Creators 2,Name,Guang-Sheng Lei
+,Given Name,Guang-Sheng
+,Family Name,Lei
+,Name Identifier,
+,Affiliation,"Department of Pathology and Laboratory Medicine, Indiana University School of Medicine, Indianapolis, IN, USA"
+,Affiliation Identifier,https://ror.org/02ets8c94
+Titles 1,Title,Serum proteomics of coronavirus shedding in vampire bats (Desmodus rotundus)
+Identifier,Identifier,10.5072/zenodo.168108
+,Identifier Type,DOI
+Subjects 1,Subject,Proteomics
+Subjects 2,Subject,Immune Response
+Publication Year,Publication Year,2022
+Rights,Rights,CC0
+Language,Language,en
+Descriptions 1,Description,"Bats can harbor many pathogens without showing disease. However, the mechanisms by which bats resolve these infections or limit pathology remain unclear. To illuminate the bat immune response to coronaviruses, viruses with high public health significance, we will use serum proteomics to assess broad differences in immune proteins of uninfected and infected vampire bats (Desmodus rotundus). In contrast to global profiling techniques of blood such as transcriptomics, proteomics provides a unique perspective into immunology, as the serum proteome includes proteins from not only blood but also those secreted from proximal tissues. Here, we expand our recent work on the serum proteome of wild vampire bats (Desmodus rotundus) to better understand CoV pathogenesis. Across 19 bats sampled in 2019 in northern Belize with available sera, we detected CoVs in oral or rectal swabs from four individuals. We used data independent acquisition-based mass spectrometry to profile and compare the undepleted serum proteome of these 19 bats. These results will provide much needed insight into changes in the bat serum proteome in response to coronavirus infection."
+,Description Type,Abstract
+"Funding
+References 1",Funder Name,National Geographic Society
+,Funder Identifier,http://dx.doi.org/10.13039/100006733
+,Award Number,NGS-55503R-19
+,Award URI,
+,Award Title,
+"Funding
+References 2",Funder Name,Indiana University
+,Funder Identifier,http://dx.doi.org/10.13039/100006733
+,Award Number,
+,Award URI,
+,Award Title,
+"Funding
+References 3",Funder Name,College of Charleston
+,Funder Identifier,http://dx.doi.org/10.13039/100009789
+,Award Number,
+,Award URI,
+,Award Title,
+Related Identifiers 1,Related Identifier,https://pharos.viralemergence.org/projects/?prj=prjRPayEvMecN
+,Related Identifier Type,URL
+,Relation Type,IsVersionOf
+Related Identifiers 2,Related Identifier,10.3389/fviro.2022.862961
+,Related Identifier Type,DOI
+,Relation Type,IsPartOf
