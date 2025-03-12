@@ -1,0 +1,27 @@
+Group,Variable,Value
+Methodology,Event Based,FALSE
+,Archival,FALSE
+Creators 1,Name,Jane Doe
+,Given Name,Jane
+,Family Name,Doe
+,Name Identifier,https://orcid.org/0000-0003-fake-1111
+,Affiliation,"Department of Biology, State University"
+,Affiliation Identifier,https://ror.org/02aqsfake
+Titles 1,Title,Dataset Title
+Identifier,Identifier,10.5072/zenodo.168108
+,Identifier Type,DOI
+Subjects 1,Subject,Some Subject
+Publication Year,Publication Year,2025
+Rights,Rights,CC0
+Language,Language,en
+Descriptions 1,Description,Description of the dataset
+,Description Type,Abstract
+"Funding
+References 1",Funder Name,Some Funder
+,Funder Identifier,http://dx.doi.org/10.13039/10000fake
+,Award Number,Some-award-number
+,Award URI,
+,Award Title,
+Related Identifiers 1,Related Identifier,https://address.to/project:PXD031075
+,Related Identifier Type,URL
+,Relation Type,IsVersionOf
