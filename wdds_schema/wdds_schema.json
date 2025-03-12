@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wildlife Disease Data Standard",
+  "description":"Flexible data standard for wildlife disease data",
+  "type": "object",
+  "properties": {
+    "disease_data":{
+      "description":"Wildlife disease data. Stored in tidy form.",
+      "$ref":"schemas/disease_data.json"
+    },
+    "project_metadata":{
+      "description":"Metadata for a project that largely follows the Datacite data standard.",
+      "$ref":"schemas/project_metadata.json"
+    }
+  },
+    "required":["disease_data","project_metadata"]
+}
+
+

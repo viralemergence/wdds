@@ -1,0 +1,83 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Project Metadata",
+    "description": "Minimal project metadata that promotes attribution and discoverability",
+    "type": "object",
+    "properties": {
+      "methodology":{
+          "type":"object",
+          "description":"A broad categorization of how data were collected.",
+            "properties":{
+                "eventBased":{
+                  "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",
+                  "type":"boolean"
+                      },
+                "archival":{
+                  "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
+                  "type":"boolean"
+            }
+          },
+          "anyOf": [
+            { "required": ["eventBased"] },
+            { "required": ["archival"] }
+          ]
+      },
+      "creators": {
+                "description":"The full names of the creators. Should be in the format familyName, givenName.",
+               "$ref": "datacite/datacite-v4.5.json#/properties/creators"
+                },
+      "titles": {
+            "description":"A name or title by which a resource is known.",
+           "$ref": "datacite/datacite-v4.5.json#/properties/titles"
+            },
+      "identifier": {
+              "description":"A unique string that identifies a resource.",
+              "type":"array",
+                "items": {
+                              "type": "object",
+                              "properties":{
+                                "identifier":{"type":"string"},
+                                "identifierType":{"$ref": "datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"}
+                                },
+                                "required":["identifier"],
+                "uniqueItems":true
+                }
+      },
+      "subjects":{
+          "description":"Subject, keyword, classification code, or key phrase describing the resource.",
+          "$ref": "datacite/datacite-v4.5.json#/properties/subjects"
+      },
+      "publicationYear": {
+            "description":"The year when the data was or will be made publicly available.",
+           "$ref": "datacite/datacite-v4.5.json#/properties/publicationYear"
+            },
+      "rights":{
+        "description":"Any rights information for this resource.",
+          "$ref": "datacite/datacite-v4.5.json#/properties/rightsList"
+        },
+        "descriptions":{
+          "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
+                  "$ref": "datacite/datacite-v4.5.json#/properties/descriptions"
+        },
+        "language":{
+          "description":"The primary language of the resource.",
+         "$ref":"datacite/datacite-v4.5.json#/properties/language"
+        },
+        "fundingReferences":{
+         "description":"Name and other identifying information of a funding provider.",
+         "$ref":"datacite/datacite-v4.5.json#/properties/fundingReferences"
+        },
+        "relatedIdentifiers":{
+          "$ref":"datacite/datacite-v4.5.json#/properties/relatedIdentifiers"
+        }
+    },
+  "required": [
+        "methodology",
+        "creators",
+        "titles",
+        "publicationYear",
+        "language",
+        "descriptions",
+        "fundingReferences"
+    ]
+}

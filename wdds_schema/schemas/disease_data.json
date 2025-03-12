@@ -1,0 +1,387 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Wildlife Disease Data",
+    "description": "Schema for Wildlife Disease Data. This a general and extensible data standard.",
+      "type":"object",
+      "properties":{
+          "sampleID":{
+            "description":"A researcher-generated unique ID for the sample: usually a unique string of both characters and integers (e.g., OS BZ19-114 to indicate an oral swab taken from animal BZ19-114; see worked example below), to avoid conflicts that can arise when datasets are merged with number-only notation for samples. Ideally, sample names should be kept consistent across all online databases and physical resources (e.g., museum collections or project-specific sample archives).",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+        },
+        "animalID":{
+          "description":"A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., BZ19-114 to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources.",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "latitude":{
+          "description":"Latitude of the collection site in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLatitude",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "maximum": 90,
+            "minimum": -90
+          }
+        },
+        "longitude":{
+          "description":"Longitude of the collection site  in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLongitude",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "maximum": 180,
+            "minimum": -180
+          }
+        },
+        "spatialUncertainty":{
+          "description":"Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters. See http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "minimum":0
+          }
+        },
+        "collectionDay":{
+          "description":"The day of the month on which the specimen was collected. See http://rs.tdwg.org/dwc/terms/day",
+          "type":"array",
+          "items":{
+            "type": ["integer","null"],
+            "minItems":1,
+            "minimum":1,
+            "maximum":31
+          }
+        },
+        "collectionMonth":{
+          "description":"The month in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/month",
+          "type":"array",
+          "items":{
+            "type": ["integer","null"],
+            "minItems":1,
+            "minimum":1,
+            "maximum":12
+          }
+        },
+       "collectionYear":{
+          "description":"The year in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/year",
+          "type":"array",
+          "items":{
+            "type": ["integer","null"]
+          }
+        },
+        "sampleCollectionMethod":{
+          "description":"The technique used to acquire the sample and/or the tissue from which the sample was acquired (e.g. visual inspection; swab; wing punch; necropsy).",
+          "examples":["visual inspection", "swab", "wing punch", "necropsy"],
+          "type":"array",
+          "items":{
+            "type": ["string"],
+            "minItems":1
+          }
+        },
+       "sampleMaterial":{
+          "description":"Organic material from the animal body (i.e., tissue or fluid) extracted into a sample (e.g., “liver”; “blood”; “skin”; “whole organism”).",
+          "examples":["liver", "blood", "skin", "whole organism"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "sampleCollectionBodyPart":{
+          "description":"Part of the animal body that samples are generated or collected from (e.g., “rectum”; “wing”).",
+          "examples":["rectum", "wing"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "hostIdentification":{
+          "description":"The Linnaean classification of the animal from which the sample was collected, reported at the lowest possible level (ideally, species binomial name: e.g., Odocoileus virginianus or Ixodes scapularis). As necessary, researchers may also include an additional field indicating when uncertainty exists in the identification of the host organism (see Adding new fields). See http://rs.tdwg.org/dwc/terms/scientificName",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1,
+            "not":{"pattern":"[HOMOhomo]{4} [SAPIENSsapiens]{7}"}
+          }
+        },
+        "organismSex":{
+            "description":"The sex of the individual animal from which the sample was collected. See http://rs.tdwg.org/dwc/terms/sex",
+            "examples":["male","female","hermaphrodite"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "liveCapture":{
+            "description":"Whether the individual animal from which the sample was collected was alive at the time of capture. Should be TRUE or FALSE; lethal sampling should be recorded as TRUE as this field describes the organism at the time of capture.",
+            "type":"array",
+            "items":{
+              "type": ["boolean","null"],
+              "minItems":1
+            }
+          },
+          "healthNotes":{
+            "description":"Any additional (unstructured) notes about the state of the animal, such as disease presentation.",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "hostLifeStage":{
+            "description":"The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage",
+            "examples":["juvenile","adult","larva"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "age":{
+            "description":"The numeric age of the animal from which the sample was collected, at the time of sample collection, if known (e.g., in monitored populations).",
+            "type":"array",
+            "items":{
+              "type": ["number","null"],
+              "minItems":1,
+              "minimum":0
+            }
+          },
+          "ageUnits":{
+            "description":"The units in which age is measured (usually years).",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "enum":["years","months","days","hours","minutes","seconds",null],
+              "minItems":1
+            }
+          },
+          "mass":{
+            "description":"The mass of the animal from which the sample was collected, at the time of sample collection.",
+            "type":"array",
+            "items":{
+              "type": ["number","null"],
+              "minItems":1,
+              "minimum":0
+            }
+          },
+          "massUnits":{
+            "description":"The units that mass is recorded in (e.g., kg).",
+            "examples":["kg","g","mg","kilogram","milligram"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "length":{
+            "description":"The numeric length of the animal from which the sample was collected, at the time of sample collection.",
+            "type":"array",
+            "items":{
+              "type": ["number","null"],
+              "minItems":1,
+              "minimum":0
+            }
+          },
+          "lengthMeasurement":{
+            "description":"The axis of measurement for the organism being measured (e.g., snout-vent length or just SVL; wing length; primary feather).",
+            "examples":["snout-vent length","intertegular distance","primary feather"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "lengthUnits":{
+            "description":"The units that length is recorded in (e.g., meters).",
+            "examples":["mm","meters","cm","km"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "organismQuantity":{
+            "description":"A number or enumeration value for the quantity of organisms. See http://rs.tdwg.org/dwc/terms/organismQuantity",
+            "examples":[1, 1.4, 12],
+            "type":"array",
+            "items":{
+              "type": ["number","null"],
+              "minItems":1,
+              "minimum":0
+            }
+          },
+          "organismQuantityUnits":{
+            "description":"The units that organism quantity is recorded in (e.g. “individuals”). See http://rs.tdwg.org/dwc/iri/organismQuantityType",
+            "examples":["individual","biomass","Braun-Blanquet scale"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "detectionTarget":{
+            "description":"The taxonomic identity of the parasite being screened for in the sample. This will often be coarser than the identity of a specific parasite identified in the sample: for example, in a study screening for novel bat coronaviruses, the entire family Coronaviridae might be the target; in a parasite dissection, the targets might be Acanthocephala, Cestoda, Nematoda, and Trematoda. For deep sequencing approaches (e.g., metagenomic and metatranscriptomic viral discovery), researchers should report each alignment target used as a new test to maximize reporting of negative data, or alternatively, select a subset that reflect specific study objectives and the focus of analysis (e.g., specific viral families). See http://rs.tdwg.org/dwc/terms/associatedOccurrences",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "detectionMethod":{
+            "description":"The type of test performed to detect the parasite or parasite-specific antibody (e.g., 'qPCR', ‘ELISA’)",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "forwardPrimerSequence":{
+            "description":"The sequence of the forward primer used for parasite detection (e.g., for a pan-coronavirus primer: 5’ CDCAYGARTTYTGYTCNCARC 3'). (Strongly encouraged if applicable, e.g., for PCR.)",
+            "examples":["5’ CDCAYGARTTYTGYTCNCARC 3'"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "reversePrimerSequence":{
+            "description":"The sequence of the reverse primer used for parasite detection (e.g., 5’ RHGGRTANGCRTCWATDGC 3'). (Strongly encouraged if applicable, e.g., for PCR.)",
+            "examples":["5’ RHGGRTANGCRTCWATDGC 3'"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "geneTarget":{
+            "description":"The parasite gene targeted by the primer (e.g. “RdRp” for PCR.).",
+            "examples":["RdRp"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "primerCitation":{
+            "description":"Citation(s) for the primer(s) (ideally doi, or other permanent identifier for a work, e.g. PMID). ",
+            "examples":["https://doi.org/10.1016/j.virol.2007.06.009","Complete genome sequence of bat coronavirus HKU2 from Chinese horseshoe bats revealed a much smaller spike gene with a different evolutionary lineage from the rest of the genome","PMC7103351","https://openalex.org/works/w2036144053"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+        "probeTarget":{
+            "description":"Antibody or antigen targeted for detection. (Strongly encouraged if applicable, e.g., for ELISA.)",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+        "probeType":{
+            "description":"Antibody or antigen used for detection. (Strongly encouraged if applicable, e.g., for ELISA.)",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "probeCitation":{
+            "description":"Citation(s) for the probe(s) (ideally doi, or other permanent identifier for a work, e.g. PMID). ",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+
+          "detectionOutcome":{
+            "description":"The test result (i.e., positive, negative, or inconclusive). To avoid ambiguity, these specific values are suggested over numeric values (0 or 1). See http://rs.tdwg.org/dwc/terms/occurrenceStatus",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "detectionMeasurement":{
+            "description":"Any numeric measurement of parasite detection that is more detailed than simple positive or negative results (e.g., viral titer, parasite counts, sequence reads).",
+            "type":"array",
+            "items":{
+              "type": ["number","null"],
+              "minItems":1
+            }
+          },
+          "detectionMeasurementUnits":{
+            "description":"Units for quantitative measurements of parasite intensity or test results (e.g., Ct, TCID50/mL, or parasite count).",
+            "examples":["Ct","TCID50/mL","parasite count"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "parasiteIdentification":{
+            "description":"The identity of a parasite detected by the test, if any, reported to the lowest possible taxonomic level, either as a Linnaean binomial classification or within the convention of a relevant taxonomic authority (e.g., Borrelia burgdorferi or Zika virus). Parasite identification may be more specific than detection target.",
+            "examples":["Zika virus","Borrelia burgdorferi", "Onchocerca volvulus"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "parasiteID":{
+            "description":"A researcher-generated unique ID for an individual parasite (primarily useful in nested cases where this ID is used as an animal ID in another row, such as pathogen  testing of a blood-feeding arthropod removed from a vertebrate host).",
+            "examples":["001","TICK201923"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "parasiteLifeStage":{
+            "description":"The life stage of the parasite from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult).",
+            "examples":["juvenile","adult","sporozoite"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "genbankAccession":{
+            "description":"The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See http://rs.tdwg.org/dwc/terms/otherCatalogNumbers ",
+            "examples":["U49845 | U49846","U11111"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          }
+        },
+      "required":["sampleID",
+                  "latitude",
+                  "longitude",
+                  "sampleCollectionMethod",
+                  "hostIdentification",
+                  "detectionTarget",
+                  "detectionMethod",
+                  "detectionOutcome",
+                  "parasiteIdentification"
+                  ],
+        "dependentRequired": {
+          "mass": ["massUnits"],
+          "length":["lengthUnits","lengthMeasurement"],
+          "organismQuantity":["organismQuantityUnits"],
+          "detectionMeasurement":["detectionMeasurementUnits"]
+          }
+      }
+
