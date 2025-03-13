@@ -1,5 +1,5 @@
 # wdds
-This repo  is a convenient Storage location for Wild Disease Data Standard files.
+This repo is a storage location for Wild Disease Data Standard files.
 
 ## Abstract
 Rapid and comprehensive data sharing is vital to the transparency and actionability of wildlife infectious disease surveillance and research.
@@ -15,6 +15,15 @@ For convenience, we have developed the [wddsWizard](https://viralemergence.githu
 The wddsWizard package contains [searchable documentation for terms](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html#terms). 
 
 Data can also be validated against the JSON schema using a validation engine (e.g. [AJV](https://ajv.js.org/guide/getting-started.html)).
+
+## Versioning
+
+1) All versions of WDDS will include a version number in their title (e.g. v1.0.0). 
+    - Changes including updating required fields, changing field names, adding or removing value restrictions, or other breaking changes will result in a major release bump (1.0.0 -> 2.0.0)
+    - Non-breaking changes that impact validation - refining regex patterns, correcting or refining enum values, etc - will result in a minor release bumb (1.0.0 -> 1.1.0)
+    - Non-breaking changes that do not impact validation - updating descriptions, adding examples, etc - will result in a patch release bumb (1.0.0 -> 1.0.1)
+2) When a new version of the schema is published, a new github release will be created as well as a new version of the schema on Zenodo
+3) `wddsWizard` and other validation libraries we may create will use the most recent version of the data standard by default.
 
 
 
