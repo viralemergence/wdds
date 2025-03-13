@@ -1,3 +1,9 @@
+
+
+[![DOI](https://zenodo.org/badge/947475810.svg)](https://doi.org/10.5281/zenodo.15020049)
+
+
+
 # wdds
 This repo is a storage location for Wild Disease Data Standard files.
 
