@@ -86,7 +86,7 @@
           }
         },
        "sampleMaterial":{
-          "description":"Organic material from the animal body (i.e., tissue or fluid) extracted into a sample (e.g., “liver”; “blood”; “skin”; “whole organism”).",
+          "description":"Organic tissue or fluid being collected (e.g., “liver”; “blood”; “skin”; “whole organism”).",
           "examples":["liver", "blood", "skin", "whole organism"],
           "type":"array",
           "items":{
