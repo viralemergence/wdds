@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Wildlife Disease Data Standard v1.0.1",
+  "title": "Wildlife Disease Data Standard v1.0.2",
   "description":"Flexible data standard for wildlife disease data",
   "type": "object",
   "properties": {

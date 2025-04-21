@@ -129,14 +129,6 @@
               "minItems":1
             }
           },
-          "healthNotes":{
-            "description":"Any additional (unstructured) notes about the state of the animal, such as disease presentation.",
-            "type":"array",
-            "items":{
-              "type": ["string","null"],
-              "minItems":1
-            }
-          },
           "hostLifeStage":{
             "description":"The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage",
             "examples":["juvenile","adult","larva"],
