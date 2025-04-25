@@ -26,11 +26,9 @@ Data can also be validated against the JSON schema using a validation engine (e.
 
 1) All versions of WDDS will include a version number in their title (e.g. v1.0.0). 
     - Changes including updating required fields, changing field names, adding or removing value restrictions, or other breaking changes will result in a major release bump (1.0.0 -> 2.0.0)
-    - Non-breaking changes that impact validation - refining regex patterns, correcting or refining enum values, etc - will result in a minor release bumb (1.0.0 -> 1.1.0)
-    - Non-breaking changes that do not impact validation - updating descriptions, adding examples, etc - will result in a patch release bumb (1.0.0 -> 1.0.1)
-2) When a new version of the schema is published, a new github release will be created as well as a new version of the schema on Zenodo
-3) `wddsWizard` and other validation libraries we may create will use the most recent version of the data standard by default.
-
-
-
+    - Non-breaking changes that impact validation - refining regex patterns, correcting or refining enum values, modifying the directory structure, etc - will result in a minor release bumb (1.0.0 -> 1.1.0)
+    - Non-breaking changes that do not impact validation - updating descriptions, adding examples, modifying templates, etc - will result in a patch release bumb (1.0.0 -> 1.0.1)
+2) When a new version of the schema is published, a new github release must be created as well as a new version of the schema on Zenodo
+3) `wddsWizard` and other validation libraries we may create will use the most recent version of the data standard by default. 
+   - If you make changes to files in wdds_schema, example_data, or data_templates, please create a new release following the versioning guidelines above.
 
