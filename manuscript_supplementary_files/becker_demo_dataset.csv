@@ -1,0 +1,3 @@
+﻿Sample ID,Animal ID,Latitude,Longitude,Collection day,Collection month,Collection year,Sample collection method,Sample collection body part,Host identification,Organism sex,Live capture,Host life stage,Mass,Mass units,Detection target,Detection method,Gene target,Primer citation,Detection outcome,Parasite identification,GenBank accession
+OS BZ19-95,BZ19-114,17.7643,-88.6521,23,4,2019,Swab,Mouth,Desmodus rotundus,male,TRUE,subadult,0.023,kg,Coronaviridae,semi-nested PCR,RdRp,doi:10.3390/v9120364,positive,Alphacoronavirus,OM240578
+RS BZ19-95,BZ19-114,17.7643,-88.6521,23,4,2019,Swab,Rectum,Desmodus rotundus,male,TRUE,subadult,0.023,kg,Coronaviridae,semi-nested PCR,RdRp,doi:10.3390/v9120364,negative,,
