@@ -25,3 +25,6 @@ References 1",Funder Name,Some Funder
 Related Identifiers 1,Related Identifier,https://address.to/project:PXD031075
 ,Related Identifier Type,URL
 ,Relation Type,IsVersionOf
+Related Identifiers 1,Related Identifier,https://doi.org/10.5281/zenodo.15020049 - update to latest version of WDDS
+,Related Identifier Type,DOI
+,Relation Type,isDescribedBy
