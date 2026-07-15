@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms — Wildlife Disease Data Standard v1.0.4</title>
+  <style>
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #fff;
+}
+header {
+  background: #1b4332;
+  color: #fff;
+  padding: 2rem;
+}
+header h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+header p  { opacity: 0.8; font-size: 0.95rem; }
+nav {
+  background: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+}
+nav a { color: #1b4332; text-decoration: none; margin-right: 1rem; }
+nav a:hover { text-decoration: underline; }
+main { max-width: 900px; margin: 0 auto; padding: 2rem; }
+.intro { margin-bottom: 2rem; color: #444; }
+
+/* Filter */
+.filter-bar { margin-bottom: 1.5rem; }
+.filter-bar input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* TOC */
+.toc {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.toc h2 { font-size: 1rem; margin-bottom: 0.75rem; color: #333; }
+.toc-group { margin-bottom: 1rem; }
+.toc-group h3 { font-size: 0.85rem; text-transform: uppercase;
+                letter-spacing: 0.05em; color: #888; margin-bottom: 0.4rem; }
+.toc-links { columns: 2; column-gap: 1.5rem; }
+.toc-links a { display: block; color: #1b4332; text-decoration: none;
+               font-size: 0.85rem; font-family: monospace; }
+.toc-links a:hover { text-decoration: underline; }
+
+/* Schema sections */
+.schema-section { margin-bottom: 3rem; }
+.section-title {
+  font-size: 1.4rem;
+  border-bottom: 2px solid #1b4332;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+  color: #1b4332;
+}
+.section-desc { color: #555; font-size: 0.9rem; margin-bottom: 1.5rem; }
+.subsection-heading { margin: 1.5rem 0 0.75rem; }
+.subsection-heading h3 { font-size: 1.1rem; color: #333; }
+.subsection-heading p  { font-size: 0.875rem; color: #666; }
+
+/* Term cards */
+.term {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.term.nested {
+  margin-left: 2rem;
+  border-left: 3px solid #a7f3d0;
+}
+.term-header {
+  background: #f4f4f4;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+}
+.term-name { font-size: 1rem; font-family: monospace; color: #1b4332; }
+.term-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.term-body { padding: 0.75rem 1rem; }
+.term-desc { margin-bottom: 0.6rem; color: #333; }
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: monospace;
+}
+.badge.type     { background: #dbeafe; color: #1e40af; }
+.badge.nullable { background: #fef3c7; color: #92400e; }
+.badge.required { background: #dcfce7; color: #166534; }
+.badge.optional { background: #f3f4f6; color: #6b7280; }
+.badge.enum-val { background: #ede9fe; color: #5b21b6; }
+
+/* Term metadata rows */
+.enum-list, .examples, .constraints,
+.term-uri, .dwc-ref, .datacite-ref, .schema-ref {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  color: #444;
+}
+.term-uri a, .dwc-ref a, .datacite-ref a, .schema-ref a {
+  color: #1b4332;
+  word-break: break-all;
+}
+
+/* Filter hide */
+.hidden { display: none; }
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.85rem;
+  color: #888;
+  border-top: 1px solid #eee;
+  margin-top: 3rem;
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Wildlife Disease Data Standard</h1>
+  <p>Controlled vocabulary — 88 term definitions across three schemas</p>
+</header>
+
+<nav>
+  <a href="https://viralemergence.github.io/wdds/">Home</a>
+  <a href="https://viralemergence.github.io/wdds/terms/">Terms</a>
+  <a href="https://github.com/viralemergence/wdds">GitHub</a>
+</nav>
+
+<main>
+  <p class="intro">
+    WDDS terms with a <span class="badge required">required</span> badge are
+    mandatory fields. Disease data terms have stable URIs of the form
+    <code>https://w3id.org/wdds/terms/{termName}</code>.
+    Project metadata terms follow the
+    <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">DataCite 4.5 schema</a> where indicated.
+  </p>
+
+  <div class="filter-bar">
+    <input id="filter" type="search"
+           placeholder="Filter terms by name or description…"
+           aria-label="Filter terms">
+  </div>
+
+<div class="toc" aria-label="Table of contents">
+  <h2>Contents</h2>
+  <div class="toc-group">
+    <h3><a href="#section-disease-data">Disease Data</a></h3>
+    <div class="toc-links">
+      <a href="#detectionMethod">detectionMethod</a>
+      <a href="#detectionOutcome">detectionOutcome</a>
+      <a href="#detectionTarget">detectionTarget</a>
+      <a href="#hostIdentification">hostIdentification</a>
+      <a href="#latitude">latitude</a>
+      <a href="#longitude">longitude</a>
+      <a href="#parasiteIdentification">parasiteIdentification</a>
+      <a href="#sampleCollectionMethod">sampleCollectionMethod</a>
+      <a href="#sampleID">sampleID</a>
+      <a href="#age">age</a>
+      <a href="#ageUnits">ageUnits</a>
+      <a href="#animalID">animalID</a>
+      <a href="#collectionDay">collectionDay</a>
+      <a href="#collectionMonth">collectionMonth</a>
+      <a href="#collectionYear">collectionYear</a>
+      <a href="#detectionMeasurement">detectionMeasurement</a>
+      <a href="#detectionMeasurementUnits">detectionMeasurementUnits</a>
+      <a href="#forwardPrimerSequence">forwardPrimerSequence</a>
+      <a href="#genbankAccession">genbankAccession</a>
+      <a href="#geneTarget">geneTarget</a>
+      <a href="#hostLifeStage">hostLifeStage</a>
+      <a href="#length">length</a>
+      <a href="#lengthMeasurement">lengthMeasurement</a>
+      <a href="#lengthUnits">lengthUnits</a>
+      <a href="#liveCapture">liveCapture</a>
+      <a href="#mass">mass</a>
+      <a href="#massUnits">massUnits</a>
+      <a href="#organismQuantity">organismQuantity</a>
+      <a href="#organismQuantityUnits">organismQuantityUnits</a>
+      <a href="#organismSex">organismSex</a>
+      <a href="#parasiteID">parasiteID</a>
+      <a href="#parasiteLifeStage">parasiteLifeStage</a>
+      <a href="#primerCitation">primerCitation</a>
+      <a href="#probeCitation">probeCitation</a>
+      <a href="#probeTarget">probeTarget</a>
+      <a href="#probeType">probeType</a>
+      <a href="#reversePrimerSequence">reversePrimerSequence</a>
+      <a href="#sampleCollectionBodyPart">sampleCollectionBodyPart</a>
+      <a href="#sampleMaterial">sampleMaterial</a>
+      <a href="#spatialUncertainty">spatialUncertainty</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <h3><a href="#section-project-metadata">Project Metadata</a></h3>
+    <div class="toc-links">
+      <a href="#creators">creators</a>
+      <a href="#descriptions">descriptions</a>
+      <a href="#fundingReferences">fundingReferences</a>
+      <a href="#language">language</a>
+      <a href="#methodology">methodology</a>
+      <a href="#methodology-eventBased">methodology-eventBased</a>
+      <a href="#methodology-archival">methodology-archival</a>
+      <a href="#publicationYear">publicationYear</a>
+      <a href="#titles">titles</a>
+      <a href="#identifier">identifier</a>
+      <a href="#relatedIdentifiers">relatedIdentifiers</a>
+      <a href="#rights">rights</a>
+      <a href="#subjects">subjects</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <h3><a href="#section-datacite">DataCite</a></h3>
+    <div class="toc-links">
+      <a href="#datacite-alternateIdentifiers">datacite-alternateIdentifiers</a>
+      <a href="#datacite-container">datacite-container</a>
+      <a href="#datacite-contributors">datacite-contributors</a>
+      <a href="#datacite-creators">datacite-creators</a>
+      <a href="#datacite-dates">datacite-dates</a>
+      <a href="#datacite-descriptions">datacite-descriptions</a>
+      <a href="#datacite-doi">datacite-doi</a>
+      <a href="#datacite-event">datacite-event</a>
+      <a href="#datacite-formats">datacite-formats</a>
+      <a href="#datacite-fundingReferences">datacite-fundingReferences</a>
+      <a href="#datacite-geoLocations">datacite-geoLocations</a>
+      <a href="#datacite-language">datacite-language</a>
+      <a href="#datacite-prefix">datacite-prefix</a>
+      <a href="#datacite-publicationYear">datacite-publicationYear</a>
+      <a href="#datacite-publisher">datacite-publisher</a>
+      <a href="#datacite-relatedIdentifiers">datacite-relatedIdentifiers</a>
+      <a href="#datacite-relatedItems">datacite-relatedItems</a>
+      <a href="#datacite-rightsList">datacite-rightsList</a>
+      <a href="#datacite-schemaVersion">datacite-schemaVersion</a>
+      <a href="#datacite-sizes">datacite-sizes</a>
+      <a href="#datacite-subjects">datacite-subjects</a>
+      <a href="#datacite-suffix">datacite-suffix</a>
+      <a href="#datacite-titles">datacite-titles</a>
+      <a href="#datacite-types">datacite-types</a>
+      <a href="#datacite-url">datacite-url</a>
+      <a href="#datacite-version">datacite-version</a>
+      <a href="#datacite-def-contributorType">datacite-def-contributorType</a>
+      <a href="#datacite-def-dateType">datacite-def-dateType</a>
+      <a href="#datacite-def-descriptionType">datacite-def-descriptionType</a>
+      <a href="#datacite-def-funderIdentifierType">datacite-def-funderIdentifierType</a>
+      <a href="#datacite-def-nameType">datacite-def-nameType</a>
+      <a href="#datacite-def-relatedIdentifierType">datacite-def-relatedIdentifierType</a>
+      <a href="#datacite-def-relationType">datacite-def-relationType</a>
+      <a href="#datacite-def-resourceTypeGeneral">datacite-def-resourceTypeGeneral</a>
+      <a href="#datacite-def-titleType">datacite-def-titleType</a>
+    </div>
+  </div>
+</div>
+
+<div class="schema-section" id="section-disease-data">
+  <h2 class="section-title">Disease Data Terms</h2>
+  <p class="section-desc">Fields defined in <code>wdds_schema/schemas/disease_data.json</code>. Each term URI follows the pattern <code>https://w3id.org/wdds/terms/{termName}</code>.</p>
+  <section class="term" id="detectionMethod">
+    <div class="term-header">
+      <h3 class="term-name">detectionMethod</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The type of test performed to detect the parasite or parasite-specific antibody (e.g., &#x27;qPCR&#x27;, ‘ELISA’)</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/detectionMethod">https://w3id.org/wdds/terms/detectionMethod</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="detectionOutcome">
+    <div class="term-header">
+      <h3 class="term-name">detectionOutcome</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The test result (i.e., positive, negative, or inconclusive). To avoid ambiguity, these specific values are suggested over numeric values (0 or 1).</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/detectionOutcome">https://w3id.org/wdds/terms/detectionOutcome</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/occurrenceStatus">http://rs.tdwg.org/dwc/terms/occurrenceStatus</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="detectionTarget">
+    <div class="term-header">
+      <h3 class="term-name">detectionTarget</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The taxonomic identity of the parasite being screened for in the sample. This will often be coarser than the identity of a specific parasite identified in the sample: for example, in a study screening for novel bat coronaviruses, the entire family Coronaviridae might be the target; in a parasite dissection, the targets might be Acanthocephala, Cestoda, Nematoda, and Trematoda. For deep sequencing approaches (e.g., metagenomic and metatranscriptomic viral discovery), researchers should report each alignment target used as a new test to maximize reporting of negative data, or alternatively, select a subset that reflect specific study objectives and the focus of analysis (e.g., specific viral families).</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/detectionTarget">https://w3id.org/wdds/terms/detectionTarget</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/associatedOccurrences">http://rs.tdwg.org/dwc/terms/associatedOccurrences</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="hostIdentification">
+    <div class="term-header">
+      <h3 class="term-name">hostIdentification</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The Linnaean classification of the animal from which the sample was collected, reported at the lowest possible level (ideally, species binomial name: e.g., Odocoileus virginianus or Ixodes scapularis). As necessary, researchers may also include an additional field indicating when uncertainty exists in the identification of the host organism (see Adding new fields).</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/hostIdentification">https://w3id.org/wdds/terms/hostIdentification</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/scientificName">http://rs.tdwg.org/dwc/terms/scientificName</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="latitude">
+    <div class="term-header">
+      <h3 class="term-name">latitude</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Latitude of the collection site in decimal format.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: -90; maximum: 90; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/latitude">https://w3id.org/wdds/terms/latitude</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/decimalLatitude">http://rs.tdwg.org/dwc/terms/decimalLatitude</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="longitude">
+    <div class="term-header">
+      <h3 class="term-name">longitude</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Longitude of the collection site  in decimal format.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: -180; maximum: 180; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/longitude">https://w3id.org/wdds/terms/longitude</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/decimalLongitude">http://rs.tdwg.org/dwc/terms/decimalLongitude</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="parasiteIdentification">
+    <div class="term-header">
+      <h3 class="term-name">parasiteIdentification</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The identity of a parasite detected by the test, if any, reported to the lowest possible taxonomic level, either as a Linnaean binomial classification or within the convention of a relevant taxonomic authority (e.g., Borrelia burgdorferi or Zika virus). Parasite identification may be more specific than detection target.</p>
+      <div class="examples"><strong>Examples:</strong> <code>Zika virus</code>, <code>Borrelia burgdorferi</code>, <code>Onchocerca volvulus</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/parasiteIdentification">https://w3id.org/wdds/terms/parasiteIdentification</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="sampleCollectionMethod">
+    <div class="term-header">
+      <h3 class="term-name">sampleCollectionMethod</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The technique used to acquire the sample and/or the tissue from which the sample was acquired (e.g. visual inspection; swab; wing punch; necropsy).</p>
+      <div class="examples"><strong>Examples:</strong> <code>visual inspection</code>, <code>swab</code>, <code>wing punch</code>, <code>necropsy</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/sampleCollectionMethod">https://w3id.org/wdds/terms/sampleCollectionMethod</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="sampleID">
+    <div class="term-header">
+      <h3 class="term-name">sampleID</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A researcher-generated unique ID for the sample: usually a unique string of both characters and integers (e.g., OS BZ19-114 to indicate an oral swab taken from animal BZ19-114; see worked example below), to avoid conflicts that can arise when datasets are merged with number-only notation for samples. Ideally, sample names should be kept consistent across all online databases and physical resources (e.g., museum collections or project-specific sample archives).</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/sampleID">https://w3id.org/wdds/terms/sampleID</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="age">
+    <div class="term-header">
+      <h3 class="term-name">age</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The numeric age of the animal from which the sample was collected, at the time of sample collection, if known (e.g., in monitored populations).</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 0; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/age">https://w3id.org/wdds/terms/age</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="ageUnits">
+    <div class="term-header">
+      <h3 class="term-name">ageUnits</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The units in which age is measured (usually years).</p>
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">years</span> <span class="badge enum-val">months</span> <span class="badge enum-val">days</span> <span class="badge enum-val">hours</span> <span class="badge enum-val">minutes</span> <span class="badge enum-val">seconds</span></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/ageUnits">https://w3id.org/wdds/terms/ageUnits</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="animalID">
+    <div class="term-header">
+      <h3 class="term-name">animalID</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., BZ19-114 to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources.</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/animalID">https://w3id.org/wdds/terms/animalID</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="collectionDay">
+    <div class="term-header">
+      <h3 class="term-name">collectionDay</h3>
+      <div class="term-badges">
+        <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The day of the month on which the specimen was collected.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 1; maximum: 31; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/collectionDay">https://w3id.org/wdds/terms/collectionDay</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/day">http://rs.tdwg.org/dwc/terms/day</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="collectionMonth">
+    <div class="term-header">
+      <h3 class="term-name">collectionMonth</h3>
+      <div class="term-badges">
+        <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The month in which the specimen was collected.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 1; maximum: 12; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/collectionMonth">https://w3id.org/wdds/terms/collectionMonth</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/month">http://rs.tdwg.org/dwc/terms/month</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="collectionYear">
+    <div class="term-header">
+      <h3 class="term-name">collectionYear</h3>
+      <div class="term-badges">
+        <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The year in which the specimen was collected.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/collectionYear">https://w3id.org/wdds/terms/collectionYear</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/year">http://rs.tdwg.org/dwc/terms/year</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="detectionMeasurement">
+    <div class="term-header">
+      <h3 class="term-name">detectionMeasurement</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Any numeric measurement of parasite detection that is more detailed than simple positive or negative results (e.g., viral titer, parasite counts, sequence reads).</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/detectionMeasurement">https://w3id.org/wdds/terms/detectionMeasurement</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="detectionMeasurementUnits">
+    <div class="term-header">
+      <h3 class="term-name">detectionMeasurementUnits</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Units for quantitative measurements of parasite intensity or test results (e.g., Ct, TCID50/mL, or parasite count).</p>
+      <div class="examples"><strong>Examples:</strong> <code>Ct</code>, <code>TCID50/mL</code>, <code>parasite count</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/detectionMeasurementUnits">https://w3id.org/wdds/terms/detectionMeasurementUnits</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="forwardPrimerSequence">
+    <div class="term-header">
+      <h3 class="term-name">forwardPrimerSequence</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The sequence of the forward primer used for parasite detection (e.g., for a pan-coronavirus primer: 5’ CDCAYGARTTYTGYTCNCARC 3&#x27;). (Strongly encouraged if applicable, e.g., for PCR.)</p>
+      <div class="examples"><strong>Examples:</strong> <code>5’ CDCAYGARTTYTGYTCNCARC 3&#x27;</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/forwardPrimerSequence">https://w3id.org/wdds/terms/forwardPrimerSequence</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="genbankAccession">
+    <div class="term-header">
+      <h3 class="term-name">genbankAccession</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See http://rs.tdwg.org/dwc/terms/otherCatalogNumbers</p>
+      <div class="examples"><strong>Examples:</strong> <code>U49845 | U49846</code>, <code>U11111</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/genbankAccession">https://w3id.org/wdds/terms/genbankAccession</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/otherCatalogNumbers">http://rs.tdwg.org/dwc/terms/otherCatalogNumbers</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="geneTarget">
+    <div class="term-header">
+      <h3 class="term-name">geneTarget</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The parasite gene targeted by the primer (e.g. “RdRp” for PCR.).</p>
+      <div class="examples"><strong>Examples:</strong> <code>RdRp</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/geneTarget">https://w3id.org/wdds/terms/geneTarget</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="hostLifeStage">
+    <div class="term-header">
+      <h3 class="term-name">hostLifeStage</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult).</p>
+      <div class="examples"><strong>Examples:</strong> <code>juvenile</code>, <code>adult</code>, <code>larva</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/hostLifeStage">https://w3id.org/wdds/terms/hostLifeStage</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/lifeStage">http://rs.tdwg.org/dwc/terms/lifeStage</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="length">
+    <div class="term-header">
+      <h3 class="term-name">length</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The numeric length of the animal from which the sample was collected, at the time of sample collection.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 0; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/length">https://w3id.org/wdds/terms/length</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="lengthMeasurement">
+    <div class="term-header">
+      <h3 class="term-name">lengthMeasurement</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The axis of measurement for the organism being measured (e.g., snout-vent length or just SVL; wing length; primary feather).</p>
+      <div class="examples"><strong>Examples:</strong> <code>snout-vent length</code>, <code>intertegular distance</code>, <code>primary feather</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/lengthMeasurement">https://w3id.org/wdds/terms/lengthMeasurement</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="lengthUnits">
+    <div class="term-header">
+      <h3 class="term-name">lengthUnits</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The units that length is recorded in (e.g., meters).</p>
+      <div class="examples"><strong>Examples:</strong> <code>mm</code>, <code>meters</code>, <code>cm</code>, <code>km</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/lengthUnits">https://w3id.org/wdds/terms/lengthUnits</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="liveCapture">
+    <div class="term-header">
+      <h3 class="term-name">liveCapture</h3>
+      <div class="term-badges">
+        <span class="badge type">boolean</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Whether the individual animal from which the sample was collected was alive at the time of capture. Should be TRUE or FALSE; lethal sampling should be recorded as TRUE as this field describes the organism at the time of capture.</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/liveCapture">https://w3id.org/wdds/terms/liveCapture</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="mass">
+    <div class="term-header">
+      <h3 class="term-name">mass</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The mass of the animal from which the sample was collected, at the time of sample collection.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 0; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/mass">https://w3id.org/wdds/terms/mass</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="massUnits">
+    <div class="term-header">
+      <h3 class="term-name">massUnits</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The units that mass is recorded in (e.g., kg).</p>
+      <div class="examples"><strong>Examples:</strong> <code>kg</code>, <code>g</code>, <code>mg</code>, <code>kilogram</code>, <code>milligram</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/massUnits">https://w3id.org/wdds/terms/massUnits</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="organismQuantity">
+    <div class="term-header">
+      <h3 class="term-name">organismQuantity</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A number or enumeration value for the quantity of organisms.</p>
+      <div class="examples"><strong>Examples:</strong> <code>1</code>, <code>1.4</code>, <code>12</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 0; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/organismQuantity">https://w3id.org/wdds/terms/organismQuantity</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/organismQuantity">http://rs.tdwg.org/dwc/terms/organismQuantity</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="organismQuantityUnits">
+    <div class="term-header">
+      <h3 class="term-name">organismQuantityUnits</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The units that organism quantity is recorded in (e.g. “individuals”).</p>
+      <div class="examples"><strong>Examples:</strong> <code>individual</code>, <code>biomass</code>, <code>Braun-Blanquet scale</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/organismQuantityUnits">https://w3id.org/wdds/terms/organismQuantityUnits</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/iri/organismQuantityType">http://rs.tdwg.org/dwc/iri/organismQuantityType</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="organismSex">
+    <div class="term-header">
+      <h3 class="term-name">organismSex</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The sex of the individual animal from which the sample was collected.</p>
+      <div class="examples"><strong>Examples:</strong> <code>male</code>, <code>female</code>, <code>hermaphrodite</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/organismSex">https://w3id.org/wdds/terms/organismSex</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/sex">http://rs.tdwg.org/dwc/terms/sex</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="parasiteID">
+    <div class="term-header">
+      <h3 class="term-name">parasiteID</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A researcher-generated unique ID for an individual parasite (primarily useful in nested cases where this ID is used as an animal ID in another row, such as pathogen  testing of a blood-feeding arthropod removed from a vertebrate host).</p>
+      <div class="examples"><strong>Examples:</strong> <code>001</code>, <code>TICK201923</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/parasiteID">https://w3id.org/wdds/terms/parasiteID</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="parasiteLifeStage">
+    <div class="term-header">
+      <h3 class="term-name">parasiteLifeStage</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The life stage of the parasite from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult).</p>
+      <div class="examples"><strong>Examples:</strong> <code>juvenile</code>, <code>adult</code>, <code>sporozoite</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/parasiteLifeStage">https://w3id.org/wdds/terms/parasiteLifeStage</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="primerCitation">
+    <div class="term-header">
+      <h3 class="term-name">primerCitation</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Citation(s) for the primer(s) (ideally doi, or other permanent identifier for a work, e.g. PMID).</p>
+      <div class="examples"><strong>Examples:</strong> <code>https://doi.org/10.1016/j.virol.2007.06.009</code>, <code>Complete genome sequence of bat coronavirus HKU2 from Chinese horseshoe bats revealed a much smaller spike gene with a different evolutionary lineage from the rest of the genome</code>, <code>PMC7103351</code>, <code>https://openalex.org/works/w2036144053</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/primerCitation">https://w3id.org/wdds/terms/primerCitation</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="probeCitation">
+    <div class="term-header">
+      <h3 class="term-name">probeCitation</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Citation(s) for the probe(s) (ideally doi, or other permanent identifier for a work, e.g. PMID).</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/probeCitation">https://w3id.org/wdds/terms/probeCitation</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="probeTarget">
+    <div class="term-header">
+      <h3 class="term-name">probeTarget</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Antibody or antigen targeted for detection. (Strongly encouraged if applicable, e.g., for ELISA.)</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/probeTarget">https://w3id.org/wdds/terms/probeTarget</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="probeType">
+    <div class="term-header">
+      <h3 class="term-name">probeType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Antibody or antigen used for detection. (Strongly encouraged if applicable, e.g., for ELISA.)</p>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/probeType">https://w3id.org/wdds/terms/probeType</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="reversePrimerSequence">
+    <div class="term-header">
+      <h3 class="term-name">reversePrimerSequence</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The sequence of the reverse primer used for parasite detection (e.g., 5’ RHGGRTANGCRTCWATDGC 3&#x27;). (Strongly encouraged if applicable, e.g., for PCR.)</p>
+      <div class="examples"><strong>Examples:</strong> <code>5’ RHGGRTANGCRTCWATDGC 3&#x27;</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/reversePrimerSequence">https://w3id.org/wdds/terms/reversePrimerSequence</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="sampleCollectionBodyPart">
+    <div class="term-header">
+      <h3 class="term-name">sampleCollectionBodyPart</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Part of the animal body that samples are generated or collected from (e.g., “rectum”; “wing”).</p>
+      <div class="examples"><strong>Examples:</strong> <code>rectum</code>, <code>wing</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/sampleCollectionBodyPart">https://w3id.org/wdds/terms/sampleCollectionBodyPart</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="sampleMaterial">
+    <div class="term-header">
+      <h3 class="term-name">sampleMaterial</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Organic tissue or fluid being collected (e.g., “liver”; “blood”; “skin”; “whole organism”).</p>
+      <div class="examples"><strong>Examples:</strong> <code>liver</code>, <code>blood</code>, <code>skin</code>, <code>whole organism</code></div>
+      <div class="constraints"><strong>Constraints:</strong> minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/sampleMaterial">https://w3id.org/wdds/terms/sampleMaterial</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="spatialUncertainty">
+    <div class="term-header">
+      <h3 class="term-name">spatialUncertainty</h3>
+      <div class="term-badges">
+        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters.</p>
+      <div class="constraints"><strong>Constraints:</strong> minimum: 0; minItems: 1</div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/spatialUncertainty">https://w3id.org/wdds/terms/spatialUncertainty</a></div>
+      <div class="dwc-ref"><strong>Darwin Core mapping:</strong> <a href="http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters">http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json</a></div>
+    </div>
+  </section>
+</div>
+
+<div class="schema-section" id="section-project-metadata">
+  <h2 class="section-title">Project Metadata Terms</h2>
+  <p class="section-desc">Fields defined in <code>wdds_schema/schemas/project_metadata.json</code>, largely following the <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">DataCite 4.5 metadata schema</a>.</p>
+  <section class="term" id="creators">
+    <div class="term-header">
+      <h3 class="term-name">creators</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The full names of the creators. Should be in the format familyName, givenName.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/creators">https://w3id.org/wdds/terms/creators</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/creators</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="descriptions">
+    <div class="term-header">
+      <h3 class="term-name">descriptions</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/descriptions">https://w3id.org/wdds/terms/descriptions</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/descriptions</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="fundingReferences">
+    <div class="term-header">
+      <h3 class="term-name">fundingReferences</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Name and other identifying information of a funding provider.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/fundingReferences">https://w3id.org/wdds/terms/fundingReferences</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/fundingReferences</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="language">
+    <div class="term-header">
+      <h3 class="term-name">language</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The primary language of the resource.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/language">https://w3id.org/wdds/terms/language</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/language</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="methodology">
+    <div class="term-header">
+      <h3 class="term-name">methodology</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A broad categorization of how data were collected.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/methodology">https://w3id.org/wdds/terms/methodology</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term nested" id="methodology-eventBased">
+    <div class="term-header">
+      <h3 class="term-name">methodology.eventBased</h3>
+      <div class="term-badges">
+        <span class="badge type">boolean</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/methodology-eventBased">https://w3id.org/wdds/terms/methodology-eventBased</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term nested" id="methodology-archival">
+    <div class="term-header">
+      <h3 class="term-name">methodology.archival</h3>
+      <div class="term-badges">
+        <span class="badge type">boolean</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Whether samples were from an archival source (e.g., museum collections, biobanks).</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/methodology-archival">https://w3id.org/wdds/terms/methodology-archival</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="publicationYear">
+    <div class="term-header">
+      <h3 class="term-name">publicationYear</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">The year when the data was or will be made publicly available.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/publicationYear">https://w3id.org/wdds/terms/publicationYear</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/publicationYear</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="titles">
+    <div class="term-header">
+      <h3 class="term-name">titles</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A name or title by which a resource is known.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/titles">https://w3id.org/wdds/terms/titles</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/titles</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="identifier">
+    <div class="term-header">
+      <h3 class="term-name">identifier</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A unique string that identifies a resource.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/identifier">https://w3id.org/wdds/terms/identifier</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="relatedIdentifiers">
+    <div class="term-header">
+      <h3 class="term-name">relatedIdentifiers</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/relatedIdentifiers">https://w3id.org/wdds/terms/relatedIdentifiers</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/relatedIdentifiers</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="rights">
+    <div class="term-header">
+      <h3 class="term-name">rights</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Any rights information for this resource.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/rights">https://w3id.org/wdds/terms/rights</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/rightsList</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="subjects">
+    <div class="term-header">
+      <h3 class="term-name">subjects</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">Subject, keyword, classification code, or key phrase describing the resource.</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/subjects">https://w3id.org/wdds/terms/subjects</a></div>
+      <div class="datacite-ref"><strong>DataCite field:</strong> <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">datacite/datacite-v4.5.json#/properties/subjects</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+</div>
+
+<div class="schema-section" id="section-datacite">
+  <h2 class="section-title">DataCite Terms</h2>
+  <p class="section-desc">Fields from the <a href="https://datacite-metadata-schema.readthedocs.io/en/4.5/">DataCite 4.5 metadata schema</a> referenced by WDDS project metadata. Includes top-level properties and controlled vocabulary type definitions.</p>
+  <section class="term" id="datacite-alternateIdentifiers">
+    <div class="term-header">
+      <h3 class="term-name">alternateIdentifiers</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-container">
+    <div class="term-header">
+      <h3 class="term-name">container</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-contributors">
+    <div class="term-header">
+      <h3 class="term-name">contributors</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-creators">
+    <div class="term-header">
+      <h3 class="term-name">creators</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-dates">
+    <div class="term-header">
+      <h3 class="term-name">dates</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-descriptions">
+    <div class="term-header">
+      <h3 class="term-name">descriptions</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-doi">
+    <div class="term-header">
+      <h3 class="term-name">doi</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="constraints"><strong>Constraints:</strong> pattern: <code>^10[.][0-9]{4,9}[/][^\s]+$</code></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-event">
+    <div class="term-header">
+      <h3 class="term-name">event</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">hide</span> <span class="badge enum-val">register</span> <span class="badge enum-val">publish</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-formats">
+    <div class="term-header">
+      <h3 class="term-name">formats</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-fundingReferences">
+    <div class="term-header">
+      <h3 class="term-name">fundingReferences</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-geoLocations">
+    <div class="term-header">
+      <h3 class="term-name">geoLocations</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-language">
+    <div class="term-header">
+      <h3 class="term-name">language</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-prefix">
+    <div class="term-header">
+      <h3 class="term-name">prefix</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="constraints"><strong>Constraints:</strong> pattern: <code>^10[.][0-9]{4,9}$</code></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-publicationYear">
+    <div class="term-header">
+      <h3 class="term-name">publicationYear</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-publisher">
+    <div class="term-header">
+      <h3 class="term-name">publisher</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-relatedIdentifiers">
+    <div class="term-header">
+      <h3 class="term-name">relatedIdentifiers</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-relatedItems">
+    <div class="term-header">
+      <h3 class="term-name">relatedItems</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-rightsList">
+    <div class="term-header">
+      <h3 class="term-name">rightsList</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-schemaVersion">
+    <div class="term-header">
+      <h3 class="term-name">schemaVersion</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-sizes">
+    <div class="term-header">
+      <h3 class="term-name">sizes</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-subjects">
+    <div class="term-header">
+      <h3 class="term-name">subjects</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-suffix">
+    <div class="term-header">
+      <h3 class="term-name">suffix</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="constraints"><strong>Constraints:</strong> pattern: <code>^[^\s]+$</code></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-titles">
+    <div class="term-header">
+      <h3 class="term-name">titles</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-types">
+    <div class="term-header">
+      <h3 class="term-name">types</h3>
+      <div class="term-badges">
+        <span class="badge type">object</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-url">
+    <div class="term-header">
+      <h3 class="term-name">url</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-version">
+    <div class="term-header">
+      <h3 class="term-name">version</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+<div class="subsection-heading"><h3>Controlled Vocabulary Types</h3><p>Enumerated types defined in the DataCite schema and referenced by project metadata fields.</p></div>
+
+  <section class="term" id="datacite-def-contributorType">
+    <div class="term-header">
+      <h3 class="term-name">contributorType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">ContactPerson</span> <span class="badge enum-val">DataCollector</span> <span class="badge enum-val">DataCurator</span> <span class="badge enum-val">DataManager</span> <span class="badge enum-val">Distributor</span> <span class="badge enum-val">Editor</span> <span class="badge enum-val">HostingInstitution</span> <span class="badge enum-val">Producer</span> <span class="badge enum-val">ProjectLeader</span> <span class="badge enum-val">ProjectManager</span> <span class="badge enum-val">ProjectMember</span> <span class="badge enum-val">RegistrationAgency</span> <span class="badge enum-val">RegistrationAuthority</span> <span class="badge enum-val">RelatedPerson</span> <span class="badge enum-val">Researcher</span> <span class="badge enum-val">ResearchGroup</span> <span class="badge enum-val">RightsHolder</span> <span class="badge enum-val">Sponsor</span> <span class="badge enum-val">Supervisor</span> <span class="badge enum-val">WorkPackageLeader</span> <span class="badge enum-val">Other</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-dateType">
+    <div class="term-header">
+      <h3 class="term-name">dateType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">Accepted</span> <span class="badge enum-val">Available</span> <span class="badge enum-val">Copyrighted</span> <span class="badge enum-val">Collected</span> <span class="badge enum-val">Created</span> <span class="badge enum-val">Issued</span> <span class="badge enum-val">Submitted</span> <span class="badge enum-val">Updated</span> <span class="badge enum-val">Valid</span> <span class="badge enum-val">Withdrawn</span> <span class="badge enum-val">Other</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-descriptionType">
+    <div class="term-header">
+      <h3 class="term-name">descriptionType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">Abstract</span> <span class="badge enum-val">Methods</span> <span class="badge enum-val">SeriesInformation</span> <span class="badge enum-val">TableOfContents</span> <span class="badge enum-val">TechnicalInfo</span> <span class="badge enum-val">Other</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-funderIdentifierType">
+    <div class="term-header">
+      <h3 class="term-name">funderIdentifierType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">ISNI</span> <span class="badge enum-val">GRID</span> <span class="badge enum-val">Crossref Funder ID</span> <span class="badge enum-val">ROR</span> <span class="badge enum-val">Other</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-nameType">
+    <div class="term-header">
+      <h3 class="term-name">nameType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">Organizational</span> <span class="badge enum-val">Personal</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-relatedIdentifierType">
+    <div class="term-header">
+      <h3 class="term-name">relatedIdentifierType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">ARK</span> <span class="badge enum-val">arXiv</span> <span class="badge enum-val">bibcode</span> <span class="badge enum-val">DOI</span> <span class="badge enum-val">EAN13</span> <span class="badge enum-val">EISSN</span> <span class="badge enum-val">Handle</span> <span class="badge enum-val">IGSN</span> <span class="badge enum-val">ISBN</span> <span class="badge enum-val">ISSN</span> <span class="badge enum-val">ISTC</span> <span class="badge enum-val">LISSN</span> <span class="badge enum-val">LSID</span> <span class="badge enum-val">PMID</span> <span class="badge enum-val">PURL</span> <span class="badge enum-val">UPC</span> <span class="badge enum-val">URL</span> <span class="badge enum-val">URN</span> <span class="badge enum-val">w3id</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-relationType">
+    <div class="term-header">
+      <h3 class="term-name">relationType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">IsCitedBy</span> <span class="badge enum-val">Cites</span> <span class="badge enum-val">IsCollectedBy</span> <span class="badge enum-val">Collects</span> <span class="badge enum-val">IsSupplementTo</span> <span class="badge enum-val">IsSupplementedBy</span> <span class="badge enum-val">IsContinuedBy</span> <span class="badge enum-val">Continues</span> <span class="badge enum-val">IsDescribedBy</span> <span class="badge enum-val">Describes</span> <span class="badge enum-val">HasMetadata</span> <span class="badge enum-val">IsMetadataFor</span> <span class="badge enum-val">HasVersion</span> <span class="badge enum-val">IsVersionOf</span> <span class="badge enum-val">IsNewVersionOf</span> <span class="badge enum-val">IsPartOf</span> <span class="badge enum-val">IsPreviousVersionOf</span> <span class="badge enum-val">IsPublishedIn</span> <span class="badge enum-val">HasPart</span> <span class="badge enum-val">IsReferencedBy</span> <span class="badge enum-val">References</span> <span class="badge enum-val">IsDocumentedBy</span> <span class="badge enum-val">Documents</span> <span class="badge enum-val">IsCompiledBy</span> <span class="badge enum-val">Compiles</span> <span class="badge enum-val">IsVariantFormOf</span> <span class="badge enum-val">IsOriginalFormOf</span> <span class="badge enum-val">IsIdenticalTo</span> <span class="badge enum-val">IsReviewedBy</span> <span class="badge enum-val">Reviews</span> <span class="badge enum-val">IsDerivedFrom</span> <span class="badge enum-val">IsSourceOf</span> <span class="badge enum-val">IsRequiredBy</span> <span class="badge enum-val">Requires</span> <span class="badge enum-val">IsObsoletedBy</span> <span class="badge enum-val">Obsoletes</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-resourceTypeGeneral">
+    <div class="term-header">
+      <h3 class="term-name">resourceTypeGeneral</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">Audiovisual</span> <span class="badge enum-val">Book</span> <span class="badge enum-val">BookChapter</span> <span class="badge enum-val">Collection</span> <span class="badge enum-val">ComputationalNotebook</span> <span class="badge enum-val">ConferencePaper</span> <span class="badge enum-val">ConferenceProceeding</span> <span class="badge enum-val">DataPaper</span> <span class="badge enum-val">Dataset</span> <span class="badge enum-val">Dissertation</span> <span class="badge enum-val">Event</span> <span class="badge enum-val">Image</span> <span class="badge enum-val">Instrument</span> <span class="badge enum-val">InteractiveResource</span> <span class="badge enum-val">Journal</span> <span class="badge enum-val">JournalArticle</span> <span class="badge enum-val">Model</span> <span class="badge enum-val">OutputManagementPlan</span> <span class="badge enum-val">PeerReview</span> <span class="badge enum-val">PhysicalObject</span> <span class="badge enum-val">Preprint</span> <span class="badge enum-val">Report</span> <span class="badge enum-val">Service</span> <span class="badge enum-val">Software</span> <span class="badge enum-val">Sound</span> <span class="badge enum-val">Standard</span> <span class="badge enum-val">StudyRegistration</span> <span class="badge enum-val">Text</span> <span class="badge enum-val">Workflow</span> <span class="badge enum-val">Other</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+
+  <section class="term" id="datacite-def-titleType">
+    <div class="term-header">
+      <h3 class="term-name">titleType</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <div class="enum-list"><strong>Allowed values:</strong> <span class="badge enum-val">AlternativeTitle</span> <span class="badge enum-val">Subtitle</span> <span class="badge enum-val">TranslatedTitle</span> <span class="badge enum-val">Other</span></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/datacite/datacite-v4.5.json</a></div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  Generated from
+  <a href="https://github.com/viralemergence/wdds">viralemergence/wdds</a>.
+  WDDS terms are available via the
+  <a href="https://w3id.org/wdds/">w3id.org/wdds</a> persistent namespace.
+</footer>
+
+<script>
+
+const input   = document.getElementById('filter');
+const terms   = document.querySelectorAll('.term');
+const sections = document.querySelectorAll('.schema-section');
+
+input.addEventListener('input', () => {
+  const q = input.value.toLowerCase().trim();
+
+  terms.forEach(t => {
+    if (!q) { t.classList.remove('hidden'); return; }
+    const text = (t.id + ' ' + t.innerText).toLowerCase();
+    t.classList.toggle('hidden', !text.includes(q));
+  });
+
+  // Hide section headers when all their terms are hidden
+  sections.forEach(sec => {
+    const visible = [...sec.querySelectorAll('.term')]
+      .some(t => !t.classList.contains('hidden'));
+    sec.style.display = (!q || visible) ? '' : 'none';
+  });
+});
+
+</script>
+
+</body>
+</html>

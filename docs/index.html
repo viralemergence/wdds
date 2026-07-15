@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wildlife Disease Data Standard (WDDS)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+    }
+    header {
+      background: #1b4332;
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+    }
+    header h1 { font-size: 2rem; margin-bottom: 0.4rem; }
+    header .subtitle { opacity: 0.85; font-size: 1rem; max-width: 680px; }
+    header .doi {
+      margin-top: 1rem;
+      display: inline-block;
+    }
+    nav {
+      background: #f4f4f4;
+      border-bottom: 1px solid #ddd;
+      padding: 0.75rem 2rem;
+      font-size: 0.9rem;
+    }
+    nav a { color: #1b4332; text-decoration: none; margin-right: 1.25rem; font-weight: 500; }
+    nav a:hover { text-decoration: underline; }
+    main { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem; }
+    section { margin-bottom: 2.5rem; }
+    h2 {
+      font-size: 1.35rem;
+      color: #1b4332;
+      border-bottom: 2px solid #1b4332;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+    }
+    p { margin-bottom: 0.85rem; color: #333; }
+    a { color: #1b4332; }
+    a:hover { text-decoration: underline; }
+    ul { margin: 0.5rem 0 0.85rem 1.5rem; color: #333; }
+    ul li { margin-bottom: 0.35rem; }
+    code {
+      background: #f4f4f4;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      font-size: 0.9em;
+      font-family: monospace;
+    }
+
+    /* Cards */
+    .card-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .card {
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .card h3 { font-size: 1rem; margin-bottom: 0.4rem; color: #1b4332; }
+    .card p  { font-size: 0.9rem; margin: 0; color: #555; }
+    .card a.btn {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.35rem 0.9rem;
+      background: #1b4332;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    .card a.btn:hover { background: #14532d; }
+
+    /* Versioning table */
+    .version-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+    }
+    .version-table th {
+      background: #f4f4f4;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ddd;
+      color: #333;
+    }
+    .version-table td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ddd;
+      vertical-align: top;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: #888;
+      border-top: 1px solid #eee;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Wildlife Disease Data Standard (WDDS)</h1>
+  <p class="subtitle">
+    A minimum data and metadata reporting standard for wildlife disease studies.
+  </p>
+  <a class="doi" href="https://doi.org/10.5281/zenodo.15020049">
+    <img src="https://zenodo.org/badge/947475810.svg" alt="DOI: 10.5281/zenodo.15020049">
+  </a>
+</header>
+
+<nav>
+  <a href="https://viralemergence.github.io/wdds/">Home</a>
+  <a href="https://viralemergence.github.io/wdds/terms/">Terms</a>
+  <a href="https://github.com/viralemergence/wdds">GitHub</a>
+</nav>
+
+<main>
+
+  <section id="about">
+    <h2>About</h2>
+    <p>
+      This repo is a storage location for Wildlife Disease Data Standard files.
+    </p>
+  </section>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>
+      Rapid and comprehensive data sharing is vital to the transparency and actionability
+      of wildlife infectious disease surveillance and research. Unfortunately, most best
+      practices for publicly sharing these data are focused on pathogen determination and
+      genetic sequence data.
+    </p>
+    <p>
+      Other facets of wildlife disease data — particularly negative results — are often
+      withheld or, at best, summarized in a descriptive table with limited metadata. Here,
+      we provide a minimum data and metadata reporting standard for wildlife disease studies.
+    </p>
+    <p>
+      Our data standard identifies a set of 41 data fields (9 required) and 24 metadata
+      fields (7 required) sufficient to standardize and document a dataset consisting of
+      records disaggregated to the finest possible spatial, temporal, and taxonomic scale.
+    </p>
+  </section>
+
+  <section id="data-validation">
+    <h2>Data Validation Package</h2>
+    <p>
+      For convenience, we have developed the
+      <a href="https://viralemergence.github.io/wddsWizard">wddsWizard</a> R package
+      for data validation.
+    </p>
+    <p>
+      The wddsWizard package contains
+      <a href="https://viralemergence.github.io/wddsWizard/articles/schema_overview.html#terms">searchable
+      documentation for terms</a>.
+    </p>
+    <p>
+      Data can also be validated against the JSON schema using a validation engine
+      (e.g. <a href="https://ajv.js.org/guide/getting-started.html">AJV</a>).
+    </p>
+
+    <div class="card-row">
+      <div class="card">
+        <h3>Term Definitions</h3>
+        <p>Browse all WDDS fields with descriptions, types, constraints, and stable URIs.</p>
+        <a class="btn" href="https://viralemergence.github.io/wdds/terms/">View terms</a>
+      </div>
+      <div class="card">
+        <h3>wddsWizard R Package</h3>
+        <p>Validate your dataset against the WDDS schema directly from R.</p>
+        <a class="btn" href="https://viralemergence.github.io/wddsWizard">View package</a>
+      </div>
+      <div class="card">
+        <h3>JSON Schema</h3>
+        <p>Validate data programmatically using any JSON Schema validator.</p>
+        <a class="btn" href="https://github.com/viralemergence/wdds/tree/main/wdds_schema">View schema</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="versioning">
+    <h2>Versioning</h2>
+    <ol style="margin: 0.5rem 0 0.85rem 1.5rem; color: #333;">
+      <li style="margin-bottom: 0.75rem;">
+        All versions of WDDS will include a version number in their title (e.g. <code>v1.0.0</code>).
+        <table class="version-table" style="margin-top: 0.5rem;">
+          <thead>
+            <tr>
+              <th>Change type</th>
+              <th>Examples</th>
+              <th>Version bump</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Breaking</td>
+              <td>Updating required fields, changing field names, adding or removing value restrictions</td>
+              <td><code>1.0.0 → 2.0.0</code> (major)</td>
+            </tr>
+            <tr>
+              <td>Non-breaking, affects validation</td>
+              <td>Refining regex patterns, correcting or refining enum values, modifying the directory structure</td>
+              <td><code>1.0.0 → 1.1.0</code> (minor)</td>
+            </tr>
+            <tr>
+              <td>Non-breaking, no validation impact</td>
+              <td>Updating descriptions, adding examples, modifying templates</td>
+              <td><code>1.0.0 → 1.0.1</code> (patch)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li style="margin-bottom: 0.75rem;">
+        When a new version of the schema is published, a new GitHub release must be created
+        as well as a new version of the schema on
+        <a href="https://doi.org/10.5281/zenodo.15020049">Zenodo</a>.
+      </li>
+      <li>
+        <code>wddsWizard</code> and other validation libraries we may create will use the
+        most recent version of the data standard by default. If you make changes to files
+        in <code>wdds_schema</code>, <code>example_data</code>, or <code>data_templates</code>,
+        please create a new release following the versioning guidelines above.
+      </li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>
+  Maintained by the
+  <a href="https://github.com/viralemergence">Viral Emergence Research Initiative (VERENA)</a>.
+  Source on <a href="https://github.com/viralemergence/wdds">GitHub</a>.
+  Terms available via <a href="https://w3id.org/wdds/">w3id.org/wdds</a>.
+</footer>
+
+</body>
+</html>
