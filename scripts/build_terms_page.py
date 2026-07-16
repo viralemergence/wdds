@@ -461,137 +461,7 @@ def build_datacite_section(datacite: dict) -> tuple[str, list[str]]:
 # Page assembly
 # ---------------------------------------------------------------------------
 
-CSS = """
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #1a1a1a;
-  background: #fff;
-}
-header {
-  background: #1b4332;
-  color: #fff;
-  padding: 2rem;
-}
-header h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-header p  { opacity: 0.8; font-size: 0.95rem; }
-nav {
-  background: #f4f4f4;
-  border-bottom: 1px solid #ddd;
-  padding: 0.75rem 2rem;
-  font-size: 0.9rem;
-}
-nav a { color: #1b4332; text-decoration: none; margin-right: 1rem; }
-nav a:hover { text-decoration: underline; }
-main { max-width: 900px; margin: 0 auto; padding: 2rem; }
-.intro { margin-bottom: 2rem; color: #444; }
-
-/* Filter */
-.filter-bar { margin-bottom: 1.5rem; }
-.filter-bar input {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* TOC */
-.toc {
-  background: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 1rem 1.5rem;
-  margin-bottom: 2.5rem;
-}
-.toc h2 { font-size: 1rem; margin-bottom: 0.75rem; color: #333; }
-.toc-group { margin-bottom: 1rem; }
-.toc-group h3 { font-size: 0.85rem; text-transform: uppercase;
-                letter-spacing: 0.05em; color: #888; margin-bottom: 0.4rem; }
-.toc-links { columns: 2; column-gap: 1.5rem; }
-.toc-links a { display: block; color: #1b4332; text-decoration: none;
-               font-size: 0.85rem; font-family: monospace; }
-.toc-links a:hover { text-decoration: underline; }
-
-/* Schema sections */
-.schema-section { margin-bottom: 3rem; }
-.section-title {
-  font-size: 1.4rem;
-  border-bottom: 2px solid #1b4332;
-  padding-bottom: 0.4rem;
-  margin-bottom: 0.5rem;
-  color: #1b4332;
-}
-.section-desc { color: #555; font-size: 0.9rem; margin-bottom: 1.5rem; }
-.subsection-heading { margin: 1.5rem 0 0.75rem; }
-.subsection-heading h3 { font-size: 1.1rem; color: #333; }
-.subsection-heading p  { font-size: 0.875rem; color: #666; }
-
-/* Term cards */
-.term {
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-.term.nested {
-  margin-left: 2rem;
-  border-left: 3px solid #a7f3d0;
-}
-.term-header {
-  background: #f4f4f4;
-  padding: 0.6rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #e0e0e0;
-}
-.term-name { font-size: 1rem; font-family: monospace; color: #1b4332; }
-.term-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.term-body { padding: 0.75rem 1rem; }
-.term-desc { margin-bottom: 0.6rem; color: #333; }
-
-/* Badges */
-.badge {
-  display: inline-block;
-  padding: 0.15rem 0.45rem;
-  border-radius: 3px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  font-family: monospace;
-}
-.badge.type     { background: #dbeafe; color: #1e40af; }
-.badge.nullable { background: #fef3c7; color: #92400e; }
-.badge.required { background: #dcfce7; color: #166534; }
-.badge.optional { background: #f3f4f6; color: #6b7280; }
-.badge.enum-val { background: #ede9fe; color: #5b21b6; }
-
-/* Term metadata rows */
-.enum-list, .examples, .constraints,
-.term-uri, .dwc-ref, .datacite-ref, .schema-ref {
-  font-size: 0.85rem;
-  margin-top: 0.4rem;
-  color: #444;
-}
-.term-uri a, .dwc-ref a, .datacite-ref a, .schema-ref a {
-  color: #1b4332;
-  word-break: break-all;
-}
-
-/* Filter hide */
-.hidden { display: none; }
-
-footer {
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.85rem;
-  color: #888;
-  border-top: 1px solid #eee;
-  margin-top: 3rem;
-}
-"""
+CSS = "../styles.css"
 
 JS = """
 const input   = document.getElementById('filter');
@@ -668,14 +538,12 @@ def build_page(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms — {h(version_title)}</title>
-  <style>
-{CSS}
-  </style>
+  <link rel="stylesheet" href={CSS}>
 </head>
 <body>
 
 <header>
-  <h1>Wildlife Disease Data Standard</h1>
+  <h1>{h(version_title)}</h1>
   <p>Controlled vocabulary — {total} term definitions across three schemas</p>
 </header>
 
@@ -694,13 +562,13 @@ def build_page(
     <a href="{DATACITE_DOCS}">DataCite 4.5 schema</a> where indicated.
   </p>
 
+{toc}
+
   <div class="filter-bar">
     <input id="filter" type="search"
-           placeholder="Filter terms by name or description…"
+           placeholder="Filter terms by name, badge, or description…"
            aria-label="Filter terms">
   </div>
-
-{toc}
 
 {disease_html}
 
@@ -735,7 +603,7 @@ def main():
     datacite_schema = load_schema(DATACITE_SCHEMA)
     wdds_meta       = load_schema(WDDS_SCHEMA)
 
-    version_title = wdds_meta.get("title", "Wildlife Disease Data Standard")
+    version_title = wdds_meta.get("title","Wild Disease Data Standard")
 
     disease_html,  dd_anchors = build_disease_data_section(disease_schema)
     project_html,  pm_anchors = build_project_metadata_section(project_schema, datacite_schema)
