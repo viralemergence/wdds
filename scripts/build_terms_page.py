@@ -170,6 +170,8 @@ def format_constraints(schema_node: dict) -> list[str]:
         out.append(f"minItems: {src['minItems']}")
     if "pattern" in src:
         out.append(f"pattern: <code>{h(src['pattern'])}</code>")
+    if "uniqueItems" in src:
+        out.append(f"uniqueItems: <code>{h(src['uniqueItems'])}</code>")
     return out
 
 
