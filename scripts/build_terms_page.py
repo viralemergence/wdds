@@ -44,16 +44,16 @@ DATACITE_DOCS     = "https://datacite-metadata-schema.readthedocs.io/en/4.5/"
 # Schema source URIs shown in each term card
 SCHEMA_URIS = {
     "disease_data": (
-        "https://raw.githubusercontent.com/viralemergence/wdds/main"
-        "/wdds_schema/schemas/disease_data.json"
+        "https://viralemergence.github.io/wdds/"
+        "wdds_schema/schemas/disease_data.json"
     ),
     "project_metadata": (
-        "https://raw.githubusercontent.com/viralemergence/wdds/main"
-        "/wdds_schema/schemas/project_metadata.json"
+        "https://viralemergence.github.io/wdds/"
+        "wdds_schema/schemas/project_metadata.json"
     ),
     "datacite": (
-        "https://raw.githubusercontent.com/viralemergence/wdds/main"
-        "/wdds_schema/schemas/datacite/datacite-v4.5.json"
+        "https://viralemergence.github.io/wdds/"
+        "wdds_schema/schemas/datacite/datacite-v4.5.json"
     ),
 }
 
@@ -119,11 +119,6 @@ def format_type(schema_node: dict) -> str:
     """
     items = schema_node.get("items", {})
     type_val = items.get("type") if items else schema_node.get("type")
-
-    # print("node id")
-    # print(schema_node.get("$id"))
-    # print(schema_node.get("type"))
-
 
     if not type_val:
         return badge("object", "type")
@@ -380,8 +375,6 @@ def build_project_metadata_section(
             # look for object in types
             items = defn.get("items", {})
             type_val = items.get("type")
-            print("in array of objects")
-            print(name)
             if "object" in type_val:
                 # Render parent card
                 cards.append(render_term(
@@ -398,8 +391,7 @@ def build_project_metadata_section(
                 ## get required properties from items
                 sub_required = items.get("required", [])
                 
-                print("about to create sub cards")
-                print(items["properties"].items())
+
                 for sub_name, sub_defn in items["properties"].items():
                     anchor = f"{name}-{sub_name}"
                     cards.append(render_term(
