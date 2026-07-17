@@ -126,7 +126,6 @@ def format_type(schema_node: dict) -> str:
 
 
     if not type_val:
-        print("not type_val")
         return badge("object", "type")
 
     if isinstance(type_val, list):
