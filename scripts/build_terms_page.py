@@ -267,7 +267,7 @@ def render_term(
         lines.append(
             f'      <div class="datacite-ref">'
             f'<strong>DataCite field:</strong> '
-            f'<a href="{DATACITE_DOCS}">{h(datacite_ref)}</a></div>'
+            f'<a href="{DATACITE_DOCS}/search/?q={display_name}">{h(datacite_ref)}</a></div>'
         )
 
     lines.append(
