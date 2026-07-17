@@ -1,18 +1,22 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://w3id.org/wdds/schemas/project-metadata",
     "title": "Project Metadata",
     "description": "Minimal project metadata that promotes attribution and discoverability",
     "type": "object",
     "properties": {
       "methodology":{
           "type":"object",
+          "$id": "https://w3id.org/wdds/terms/project-metadata/methodology",
           "description":"A broad categorization of how data were collected.",
             "properties":{
                 "eventBased":{
+                  "$id": "https://w3id.org/wdds/terms/project-metadata/methodology-eventBased",
                   "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",
                   "type":"boolean"
                       },
                 "archival":{
+                  "$id": "https://w3id.org/wdds/terms/project-metadata/methodology-archival",
                   "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
                   "type":"boolean"
             }
@@ -23,53 +27,76 @@
           ]
       },
       "creators": {
-                "description":"The full names of the creators. Should be in the format familyName, givenName.",
-               "$ref": "datacite/datacite-v4.5.json#/properties/creators"
-                },
+          "$id": "https://w3id.org/wdds/terms/project-metadata/creators",
+          "description":"The full names of the creators. Should be in the format familyName, givenName.",
+          "$ref": "datacite/datacite-v4.5.json#/properties/creators"
+      },
       "titles": {
-            "description":"A name or title by which a resource is known.",
-           "$ref": "datacite/datacite-v4.5.json#/properties/titles"
-            },
+          "$id": "https://w3id.org/wdds/terms/project-metadata/titles",
+          "description":"A name or title by which a resource is known.",
+          "$ref": "datacite/datacite-v4.5.json#/properties/titles"
+      },
       "identifier": {
-              "description":"A unique string that identifies a resource.",
-              "type":"array",
+          "$id": "https://w3id.org/wdds/terms/project-metadata/identifier",
+          "description":"An array of unique objects containing an identifier, and, optionally, an identifier type.",
+          "examples": [
+            [{"identifier":"10.5281/zenodo.17717011",
+              "identifierType":"DOI"}
+            ]
+          ],
+          "type":"array",
                 "items": {
                               "type": "object",
                               "properties":{
-                                "identifier":{"type":"string"},
-                                "identifierType":{"$ref": "datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"}
+                                "identifier":{
+                                  "$id": "https://w3id.org/wdds/terms/project-metadata/identifier-identifier",
+                                  "description": "A unique string that identifies a resource",
+                                  "type":"string"
+                                },
+                                "identifierType":{
+                                  "$id": "https://w3id.org/wdds/terms/project-metadata/identifier-identifierType",
+                                  "description": "A string that identifies a resource type",
+                                  "examples": ["DOI","w3id","PMID"],
+                                  "$ref": "datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"}
                                 },
                                 "required":["identifier"],
                 "uniqueItems":true
                 }
       },
       "subjects":{
+          "$id": "https://w3id.org/wdds/terms/project-metadata/subjects",
           "description":"Subject, keyword, classification code, or key phrase describing the resource.",
           "$ref": "datacite/datacite-v4.5.json#/properties/subjects"
       },
       "publicationYear": {
-            "description":"The year when the data was or will be made publicly available.",
-           "$ref": "datacite/datacite-v4.5.json#/properties/publicationYear"
+          "$id": "https://w3id.org/wdds/terms/project-metadata/publicationYear",
+          "description":"The year when the data was or will be made publicly available.",
+          "$ref": "datacite/datacite-v4.5.json#/properties/publicationYear"
             },
       "rights":{
+        "$id": "https://w3id.org/wdds/terms/project-metadata/rights",
         "description":"Any rights information for this resource.",
-          "$ref": "datacite/datacite-v4.5.json#/properties/rightsList"
+        "$ref": "datacite/datacite-v4.5.json#/properties/rightsList"
         },
-        "descriptions":{
-          "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
-                  "$ref": "datacite/datacite-v4.5.json#/properties/descriptions"
-        },
-        "language":{
-          "description":"The primary language of the resource.",
-         "$ref":"datacite/datacite-v4.5.json#/properties/language"
-        },
-        "fundingReferences":{
-         "description":"Name and other identifying information of a funding provider.",
-         "$ref":"datacite/datacite-v4.5.json#/properties/fundingReferences"
-        },
-        "relatedIdentifiers":{
-          "$ref":"datacite/datacite-v4.5.json#/properties/relatedIdentifiers"
-        }
+      "descriptions":{
+        "$id": "https://w3id.org/wdds/terms/project-metadata/descriptions",
+        "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
+        "$ref": "datacite/datacite-v4.5.json#/properties/descriptions"
+      },
+      "language":{
+        "$id": "https://w3id.org/wdds/terms/project-metadata/language",
+        "description":"The primary language of the resource.",
+        "$ref":"datacite/datacite-v4.5.json#/properties/language"
+      },
+      "fundingReferences":{
+        "$id": "https://w3id.org/wdds/terms/project-metadata/fundingReferences",
+        "description":"Name and other identifying information of a funding provider.",
+        "$ref":"datacite/datacite-v4.5.json#/properties/fundingReferences"
+      },
+      "relatedIdentifiers":{
+        "$id": "https://w3id.org/wdds/terms/project-metadata/relatedIdentifiers",
+        "$ref":"datacite/datacite-v4.5.json#/properties/relatedIdentifiers"
+      }
     },
   "required": [
         "methodology",

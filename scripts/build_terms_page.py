@@ -35,9 +35,11 @@ DATACITE_SCHEMA      = SCHEMAS_DIR / "datacite" / "datacite-v4.5.json"
 WDDS_SCHEMA          = REPO_ROOT / "wdds_schema" / "wdds_schema.json"
 OUTPUT_DIR           = REPO_ROOT / "docs" / "terms"
 OUTPUT_FILE          = OUTPUT_DIR / "index.html"
+BASE_URI_GENERIC = "https://w3id.org/wdds/terms"
 
-BASE_URI        = "https://w3id.org/wdds/terms/"
-DATACITE_DOCS   = "https://datacite-metadata-schema.readthedocs.io/en/4.5/"
+BASE_URI_DISEASE  = "https://w3id.org/wdds/terms/disease-data/"
+BASE_URI_METADATA = "https://w3id.org/wdds/terms/project-metadata/"
+DATACITE_DOCS     = "https://datacite-metadata-schema.readthedocs.io/en/4.5/"
 
 # Schema source URIs shown in each term card
 SCHEMA_URIS = {
@@ -182,7 +184,7 @@ def render_term(
     source_key: str,
     is_required: bool = False,
     datacite_ref: str | None = None,
-    wdds_uri: bool = True,
+    base_uri: str | None = None,
     indent: int = 0,
 ) -> str:
     """
@@ -194,7 +196,7 @@ def render_term(
     source_key   : key into SCHEMA_URIS
     is_required  : whether this term is required
     datacite_ref : original $ref string if this term delegates to DataCite
-    wdds_uri     : whether to show a w3id.org URI (False for DataCite-only terms)
+    base_uri     : w3id.org base URI for this term; None suppresses the URI row
     indent       : 0 = top-level, 1 = nested sub-property (visual indent)
     """
     description  = definition.get("description", "")
@@ -234,8 +236,8 @@ def render_term(
             f'<strong>Constraints:</strong> {"; ".join(constraints)}</div>'
         )
 
-    if wdds_uri:
-        term_uri = f"{BASE_URI}{anchor_id}"
+    if base_uri:
+        term_uri = f"{base_uri}{anchor_id}"
         lines.append(
             f'      <div class="term-uri">'
             f'<strong>URI:</strong> <a href="{term_uri}">{term_uri}</a></div>'
@@ -291,6 +293,7 @@ def build_disease_data_section(schema: dict) -> tuple[str, list[str]]:
             definition   = properties[name],
             source_key   = "disease_data",
             is_required  = name in required,
+            base_uri     = BASE_URI_DISEASE,
         ))
         anchors.append(name)
 
@@ -300,7 +303,7 @@ def build_disease_data_section(schema: dict) -> tuple[str, list[str]]:
         '  <p class="section-desc">Fields defined in '
         '<code>wdds_schema/schemas/disease_data.json</code>. '
         'Each term URI follows the pattern '
-        f'<code>{BASE_URI}{{termName}}</code>.</p>\n'
+        f'<code>{BASE_URI_DISEASE}{{termName}}</code>.</p>\n'
         + "\n\n".join(cards)
         + "\n</div>"
     )
@@ -337,6 +340,7 @@ def build_project_metadata_section(
                 definition   = defn,
                 source_key   = "project_metadata",
                 is_required  = name in required,
+                base_uri     = BASE_URI_METADATA,
             ))
             anchors.append(name)
 
@@ -353,6 +357,7 @@ def build_project_metadata_section(
                     definition   = sub_defn,
                     source_key   = "project_metadata",
                     is_required  = sub_name in sub_required,
+                    base_uri     = BASE_URI_METADATA,
                     indent       = 1,
                 ))
                 anchors.append(anchor)
@@ -374,6 +379,7 @@ def build_project_metadata_section(
             source_key   = "project_metadata",
             is_required  = name in required,
             datacite_ref = ref_str,
+            base_uri     = BASE_URI_METADATA,
         ))
         anchors.append(name)
 
@@ -381,8 +387,10 @@ def build_project_metadata_section(
         '<div class="schema-section" id="section-project-metadata">\n'
         '  <h2 class="section-title">Project Metadata Terms</h2>\n'
         '  <p class="section-desc">Fields defined in '
-        '<code>wdds_schema/schemas/project_metadata.json</code>, '
-        'largely following the '
+        '<code>wdds_schema/schemas/project_metadata.json</code>. '
+        'Each term URI follows the pattern '
+        f'<code>{BASE_URI_METADATA}{{termName}}</code>.'
+        'Largely following the '
         f'<a href="{DATACITE_DOCS}">DataCite 4.5 metadata schema</a>.</p>\n'
         + "\n\n".join(cards)
         + "\n</div>"
@@ -412,7 +420,7 @@ def build_datacite_section(datacite: dict) -> tuple[str, list[str]]:
             definition   = properties[name],
             source_key   = "datacite",
             is_required  = name in dc_required,
-            wdds_uri     = False,
+            base_uri     = None,
         ))
         anchors.append(anchor)
 
@@ -440,7 +448,7 @@ def build_datacite_section(datacite: dict) -> tuple[str, list[str]]:
                 definition   = enum_defs[name],
                 source_key   = "datacite",
                 is_required  = False,
-                wdds_uri     = False,
+                base_uri     = None,
             ))
             anchors.append(anchor)
 
@@ -556,8 +564,8 @@ def build_page(
 <main>
   <p class="intro">
     WDDS terms with a <span class="badge required">required</span> badge are
-    mandatory fields. Disease data terms have stable URIs of the form
-    <code>{BASE_URI}{{termName}}</code>.
+    mandatory fields. Disease data and Project metadata terms have stable URIs of the form
+    <code>{BASE_URI_GENERIC}/{{sub-schema}}/{{termName}}</code>.
     Project metadata terms follow the
     <a href="{DATACITE_DOCS}">DataCite 4.5 schema</a> where indicated.
   </p>
