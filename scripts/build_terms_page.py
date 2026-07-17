@@ -35,9 +35,11 @@ DATACITE_SCHEMA      = SCHEMAS_DIR / "datacite" / "datacite-v4.5.json"
 WDDS_SCHEMA          = REPO_ROOT / "wdds_schema" / "wdds_schema.json"
 OUTPUT_DIR           = REPO_ROOT / "docs" / "terms"
 OUTPUT_FILE          = OUTPUT_DIR / "index.html"
+BASE_URI_GENERIC = "https://w3id.org/wdds/terms"
 
-BASE_URI        = "https://w3id.org/wdds/terms/"
-DATACITE_DOCS   = "https://datacite-metadata-schema.readthedocs.io/en/4.5/"
+BASE_URI_DISEASE  = "https://w3id.org/wdds/terms/disease-data/"
+BASE_URI_METADATA = "https://w3id.org/wdds/terms/project-metadata/"
+DATACITE_DOCS     = "https://datacite-metadata-schema.readthedocs.io/en/4.5/"
 
 # Schema source URIs shown in each term card
 SCHEMA_URIS = {
@@ -118,19 +120,29 @@ def format_type(schema_node: dict) -> str:
     items = schema_node.get("items", {})
     type_val = items.get("type") if items else schema_node.get("type")
 
+    # print("node id")
+    # print(schema_node.get("$id"))
+    # print(schema_node.get("type"))
+
+
     if not type_val:
         return badge("object", "type")
 
     if isinstance(type_val, list):
         types    = [t for t in type_val if t != "null"]
+        if schema_node.get("type") == "array":
+            types = ["array"] + types
         nullable = "null" in type_val
     else:
         types    = [type_val]
+        if schema_node.get("type") == "array":
+            types = ["array"] + types
         nullable = False
 
     out = " ".join(badge(t, "type") for t in types)
     if nullable:
         out += " " + badge("nullable", "nullable")
+   
     return out
 
 
@@ -157,6 +169,8 @@ def format_constraints(schema_node: dict) -> list[str]:
         out.append(f"minItems: {src['minItems']}")
     if "pattern" in src:
         out.append(f"pattern: <code>{h(src['pattern'])}</code>")
+    if "uniqueItems" in src:
+        out.append(f"uniqueItems: <code>{h(src['uniqueItems'])}</code>")
     return out
 
 
@@ -182,7 +196,7 @@ def render_term(
     source_key: str,
     is_required: bool = False,
     datacite_ref: str | None = None,
-    wdds_uri: bool = True,
+    base_uri: str | None = None,
     indent: int = 0,
 ) -> str:
     """
@@ -194,7 +208,7 @@ def render_term(
     source_key   : key into SCHEMA_URIS
     is_required  : whether this term is required
     datacite_ref : original $ref string if this term delegates to DataCite
-    wdds_uri     : whether to show a w3id.org URI (False for DataCite-only terms)
+    base_uri     : w3id.org base URI for this term; None suppresses the URI row
     indent       : 0 = top-level, 1 = nested sub-property (visual indent)
     """
     description  = definition.get("description", "")
@@ -234,8 +248,8 @@ def render_term(
             f'<strong>Constraints:</strong> {"; ".join(constraints)}</div>'
         )
 
-    if wdds_uri:
-        term_uri = f"{BASE_URI}{anchor_id}"
+    if base_uri:
+        term_uri = f"{base_uri}{anchor_id}"
         lines.append(
             f'      <div class="term-uri">'
             f'<strong>URI:</strong> <a href="{term_uri}">{term_uri}</a></div>'
@@ -252,7 +266,7 @@ def render_term(
         lines.append(
             f'      <div class="datacite-ref">'
             f'<strong>DataCite field:</strong> '
-            f'<a href="{DATACITE_DOCS}">{h(datacite_ref)}</a></div>'
+            f'<a href="{DATACITE_DOCS}/search/?q={display_name}">{h(datacite_ref)}</a></div>'
         )
 
     lines.append(
@@ -291,6 +305,7 @@ def build_disease_data_section(schema: dict) -> tuple[str, list[str]]:
             definition   = properties[name],
             source_key   = "disease_data",
             is_required  = name in required,
+            base_uri     = BASE_URI_DISEASE,
         ))
         anchors.append(name)
 
@@ -300,7 +315,7 @@ def build_disease_data_section(schema: dict) -> tuple[str, list[str]]:
         '  <p class="section-desc">Fields defined in '
         '<code>wdds_schema/schemas/disease_data.json</code>. '
         'Each term URI follows the pattern '
-        f'<code>{BASE_URI}{{termName}}</code>.</p>\n'
+        f'<code>{BASE_URI_DISEASE}{{termName}}</code>.</p>\n'
         + "\n\n".join(cards)
         + "\n</div>"
     )
@@ -337,6 +352,7 @@ def build_project_metadata_section(
                 definition   = defn,
                 source_key   = "project_metadata",
                 is_required  = name in required,
+                base_uri     = BASE_URI_METADATA,
             ))
             anchors.append(name)
 
@@ -353,9 +369,49 @@ def build_project_metadata_section(
                     definition   = sub_defn,
                     source_key   = "project_metadata",
                     is_required  = sub_name in sub_required,
+                    base_uri     = BASE_URI_METADATA,
                     indent       = 1,
                 ))
                 anchors.append(anchor)
+            continue
+        
+        # Array of objects (e.g. identifiers)
+        if defn.get("type") == "array":
+            # look for object in types
+            items = defn.get("items", {})
+            type_val = items.get("type")
+            print("in array of objects")
+            print(name)
+            if "object" in type_val:
+                # Render parent card
+                cards.append(render_term(
+                    anchor_id    = name,
+                    display_name = name,
+                    definition   = defn,
+                    source_key   = "project_metadata",
+                    is_required  = name in required,
+                    base_uri     = BASE_URI_METADATA,
+                ))
+                anchors.append(name)
+
+                # Render each sub-property as an indented card
+                ## get required properties from items
+                sub_required = items.get("required", [])
+                
+                print("about to create sub cards")
+                print(items["properties"].items())
+                for sub_name, sub_defn in items["properties"].items():
+                    anchor = f"{name}-{sub_name}"
+                    cards.append(render_term(
+                        anchor_id    = anchor,
+                        display_name = f"{name}.{sub_name}",
+                        definition   = sub_defn,
+                        source_key   = "project_metadata",
+                        is_required  = sub_name in sub_required,
+                        base_uri     = BASE_URI_METADATA,
+                        indent       = 1,
+                    ))
+                    anchors.append(anchor)
             continue
 
         # $ref field — resolve and merge
@@ -374,6 +430,7 @@ def build_project_metadata_section(
             source_key   = "project_metadata",
             is_required  = name in required,
             datacite_ref = ref_str,
+            base_uri     = BASE_URI_METADATA,
         ))
         anchors.append(name)
 
@@ -381,8 +438,10 @@ def build_project_metadata_section(
         '<div class="schema-section" id="section-project-metadata">\n'
         '  <h2 class="section-title">Project Metadata Terms</h2>\n'
         '  <p class="section-desc">Fields defined in '
-        '<code>wdds_schema/schemas/project_metadata.json</code>, '
-        'largely following the '
+        '<code>wdds_schema/schemas/project_metadata.json</code>. '
+        'Each term URI follows the pattern '
+        f'<code>{BASE_URI_METADATA}{{termName}}</code>.'
+        'Largely following the '
         f'<a href="{DATACITE_DOCS}">DataCite 4.5 metadata schema</a>.</p>\n'
         + "\n\n".join(cards)
         + "\n</div>"
@@ -412,7 +471,7 @@ def build_datacite_section(datacite: dict) -> tuple[str, list[str]]:
             definition   = properties[name],
             source_key   = "datacite",
             is_required  = name in dc_required,
-            wdds_uri     = False,
+            base_uri     = None,
         ))
         anchors.append(anchor)
 
@@ -440,7 +499,7 @@ def build_datacite_section(datacite: dict) -> tuple[str, list[str]]:
                 definition   = enum_defs[name],
                 source_key   = "datacite",
                 is_required  = False,
-                wdds_uri     = False,
+                base_uri     = None,
             ))
             anchors.append(anchor)
 
@@ -556,8 +615,8 @@ def build_page(
 <main>
   <p class="intro">
     WDDS terms with a <span class="badge required">required</span> badge are
-    mandatory fields. Disease data terms have stable URIs of the form
-    <code>{BASE_URI}{{termName}}</code>.
+    mandatory fields. Disease data and Project metadata terms have stable URIs of the form
+    <code>{BASE_URI_GENERIC}/{{sub-schema}}/{{termName}}</code>.
     Project metadata terms follow the
     <a href="{DATACITE_DOCS}">DataCite 4.5 schema</a> where indicated.
   </p>
