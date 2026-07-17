@@ -602,6 +602,7 @@ def build_page(
   <a href="https://viralemergence.github.io/wdds/">Home</a>
   <a href="https://viralemergence.github.io/wdds/terms/">Terms</a>
   <a href="https://github.com/viralemergence/wdds">GitHub</a>
+  <a href="https://viralemergence.github.io/wdds/wdds_schema">JSON Schema</a>
 </nav>
 
 <main>
