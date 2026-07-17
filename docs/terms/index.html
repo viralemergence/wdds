@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms — Wildlife Disease Data Standard v1.0.4</title>
+  <title>Terms — Wildlife Disease Data Standard v1.0.6</title>
   <link rel="stylesheet" href=../styles.css>
 </head>
 <body>
 
 <header>
-  <h1>Wildlife Disease Data Standard v1.0.4</h1>
-  <p>Controlled vocabulary — 88 term definitions across three schemas</p>
+  <h1>Wildlife Disease Data Standard v1.0.6</h1>
+  <p>Controlled vocabulary — 90 term definitions across three schemas</p>
 </header>
 
 <nav>
@@ -88,6 +88,8 @@
       <a href="#publicationYear">publicationYear</a>
       <a href="#titles">titles</a>
       <a href="#identifier">identifier</a>
+      <a href="#identifier-identifier">identifier-identifier</a>
+      <a href="#identifier-identifierType">identifier-identifierType</a>
       <a href="#relatedIdentifiers">relatedIdentifiers</a>
       <a href="#rights">rights</a>
       <a href="#subjects">subjects</a>
@@ -148,7 +150,7 @@
     <div class="term-header">
       <h3 class="term-name">detectionMethod</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -164,7 +166,7 @@
     <div class="term-header">
       <h3 class="term-name">detectionOutcome</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -181,7 +183,7 @@
     <div class="term-header">
       <h3 class="term-name">detectionTarget</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -198,7 +200,7 @@
     <div class="term-header">
       <h3 class="term-name">hostIdentification</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -215,7 +217,7 @@
     <div class="term-header">
       <h3 class="term-name">latitude</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -232,7 +234,7 @@
     <div class="term-header">
       <h3 class="term-name">longitude</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -249,7 +251,7 @@
     <div class="term-header">
       <h3 class="term-name">parasiteIdentification</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -266,7 +268,7 @@
     <div class="term-header">
       <h3 class="term-name">sampleCollectionMethod</h3>
       <div class="term-badges">
-        <span class="badge type">string</span>
+        <span class="badge type">array</span> <span class="badge type">string</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -283,7 +285,7 @@
     <div class="term-header">
       <h3 class="term-name">sampleID</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -299,7 +301,7 @@
     <div class="term-header">
       <h3 class="term-name">age</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -315,7 +317,7 @@
     <div class="term-header">
       <h3 class="term-name">ageUnits</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -332,7 +334,7 @@
     <div class="term-header">
       <h3 class="term-name">animalID</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -348,7 +350,7 @@
     <div class="term-header">
       <h3 class="term-name">collectionDay</h3>
       <div class="term-badges">
-        <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -365,7 +367,7 @@
     <div class="term-header">
       <h3 class="term-name">collectionMonth</h3>
       <div class="term-badges">
-        <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -382,7 +384,7 @@
     <div class="term-header">
       <h3 class="term-name">collectionYear</h3>
       <div class="term-badges">
-        <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">integer</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -398,7 +400,7 @@
     <div class="term-header">
       <h3 class="term-name">detectionMeasurement</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -414,7 +416,7 @@
     <div class="term-header">
       <h3 class="term-name">detectionMeasurementUnits</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -431,7 +433,7 @@
     <div class="term-header">
       <h3 class="term-name">forwardPrimerSequence</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -448,7 +450,7 @@
     <div class="term-header">
       <h3 class="term-name">genbankAccession</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -466,7 +468,7 @@
     <div class="term-header">
       <h3 class="term-name">geneTarget</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -483,7 +485,7 @@
     <div class="term-header">
       <h3 class="term-name">hostLifeStage</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -501,7 +503,7 @@
     <div class="term-header">
       <h3 class="term-name">length</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -517,7 +519,7 @@
     <div class="term-header">
       <h3 class="term-name">lengthMeasurement</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -534,7 +536,7 @@
     <div class="term-header">
       <h3 class="term-name">lengthUnits</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -551,7 +553,7 @@
     <div class="term-header">
       <h3 class="term-name">liveCapture</h3>
       <div class="term-badges">
-        <span class="badge type">boolean</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">boolean</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -567,7 +569,7 @@
     <div class="term-header">
       <h3 class="term-name">mass</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -583,7 +585,7 @@
     <div class="term-header">
       <h3 class="term-name">massUnits</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -600,7 +602,7 @@
     <div class="term-header">
       <h3 class="term-name">organismQuantity</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -618,7 +620,7 @@
     <div class="term-header">
       <h3 class="term-name">organismQuantityUnits</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -636,7 +638,7 @@
     <div class="term-header">
       <h3 class="term-name">organismSex</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -654,7 +656,7 @@
     <div class="term-header">
       <h3 class="term-name">parasiteID</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -671,7 +673,7 @@
     <div class="term-header">
       <h3 class="term-name">parasiteLifeStage</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -688,7 +690,7 @@
     <div class="term-header">
       <h3 class="term-name">primerCitation</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -705,7 +707,7 @@
     <div class="term-header">
       <h3 class="term-name">probeCitation</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -721,7 +723,7 @@
     <div class="term-header">
       <h3 class="term-name">probeTarget</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -737,7 +739,7 @@
     <div class="term-header">
       <h3 class="term-name">probeType</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -753,7 +755,7 @@
     <div class="term-header">
       <h3 class="term-name">reversePrimerSequence</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -770,7 +772,7 @@
     <div class="term-header">
       <h3 class="term-name">sampleCollectionBodyPart</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -787,7 +789,7 @@
     <div class="term-header">
       <h3 class="term-name">sampleMaterial</h3>
       <div class="term-badges">
-        <span class="badge type">string</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">string</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -804,7 +806,7 @@
     <div class="term-header">
       <h3 class="term-name">spatialUncertainty</h3>
       <div class="term-badges">
-        <span class="badge type">number</span> <span class="badge nullable">nullable</span>
+        <span class="badge type">array</span> <span class="badge type">number</span> <span class="badge nullable">nullable</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -825,7 +827,7 @@
     <div class="term-header">
       <h3 class="term-name">creators</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -841,7 +843,7 @@
     <div class="term-header">
       <h3 class="term-name">descriptions</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -857,7 +859,7 @@
     <div class="term-header">
       <h3 class="term-name">fundingReferences</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -950,7 +952,7 @@
     <div class="term-header">
       <h3 class="term-name">titles</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -966,13 +968,45 @@
     <div class="term-header">
       <h3 class="term-name">identifier</h3>
       <div class="term-badges">
+        <span class="badge type">array</span> <span class="badge type">object</span>
+        <span class="badge optional">optional</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">An array of unique objects containing an identifier, and, optionally, an identifier type.</p>
+      <div class="examples"><strong>Examples:</strong> <code>[{&#x27;identifier&#x27;: &#x27;10.5281/zenodo.17717011&#x27;, &#x27;identifierType&#x27;: &#x27;DOI&#x27;}]</code></div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/project-metadata/identifier">https://w3id.org/wdds/terms/project-metadata/identifier</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term nested" id="identifier-identifier">
+    <div class="term-header">
+      <h3 class="term-name">identifier.identifier</h3>
+      <div class="term-badges">
+        <span class="badge type">string</span>
+        <span class="badge required">required</span>
+      </div>
+    </div>
+    <div class="term-body">
+      <p class="term-desc">A unique string that identifies a resource</p>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/project-metadata/identifier-identifier">https://w3id.org/wdds/terms/project-metadata/identifier-identifier</a></div>
+      <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
+    </div>
+  </section>
+
+  <section class="term nested" id="identifier-identifierType">
+    <div class="term-header">
+      <h3 class="term-name">identifier.identifierType</h3>
+      <div class="term-badges">
         <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
     <div class="term-body">
-      <p class="term-desc">A unique string that identifies a resource.</p>
-      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/project-metadata/identifier">https://w3id.org/wdds/terms/project-metadata/identifier</a></div>
+      <p class="term-desc">A string that identifies a resource type</p>
+      <div class="examples"><strong>Examples:</strong> <code>DOI</code>, <code>w3id</code>, <code>PMID</code></div>
+      <div class="term-uri"><strong>URI:</strong> <a href="https://w3id.org/wdds/terms/project-metadata/identifier-identifierType">https://w3id.org/wdds/terms/project-metadata/identifier-identifierType</a></div>
       <div class="schema-ref"><strong>Defined in:</strong> <a href="https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json">https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/project_metadata.json</a></div>
     </div>
   </section>
@@ -981,7 +1015,7 @@
     <div class="term-header">
       <h3 class="term-name">relatedIdentifiers</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -996,7 +1030,7 @@
     <div class="term-header">
       <h3 class="term-name">rights</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1012,7 +1046,7 @@
     <div class="term-header">
       <h3 class="term-name">subjects</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1032,7 +1066,7 @@
     <div class="term-header">
       <h3 class="term-name">alternateIdentifiers</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1058,7 +1092,7 @@
     <div class="term-header">
       <h3 class="term-name">contributors</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1071,7 +1105,7 @@
     <div class="term-header">
       <h3 class="term-name">creators</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge required">required</span>
       </div>
     </div>
@@ -1084,7 +1118,7 @@
     <div class="term-header">
       <h3 class="term-name">dates</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1097,7 +1131,7 @@
     <div class="term-header">
       <h3 class="term-name">descriptions</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1138,7 +1172,7 @@
     <div class="term-header">
       <h3 class="term-name">formats</h3>
       <div class="term-badges">
-        <span class="badge type">string</span>
+        <span class="badge type">array</span> <span class="badge type">string</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1151,7 +1185,7 @@
     <div class="term-header">
       <h3 class="term-name">fundingReferences</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1164,7 +1198,7 @@
     <div class="term-header">
       <h3 class="term-name">geoLocations</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1230,7 +1264,7 @@
     <div class="term-header">
       <h3 class="term-name">relatedIdentifiers</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1243,7 +1277,7 @@
     <div class="term-header">
       <h3 class="term-name">relatedItems</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1256,7 +1290,7 @@
     <div class="term-header">
       <h3 class="term-name">rightsList</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1282,7 +1316,7 @@
     <div class="term-header">
       <h3 class="term-name">sizes</h3>
       <div class="term-badges">
-        <span class="badge type">string</span>
+        <span class="badge type">array</span> <span class="badge type">string</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1295,7 +1329,7 @@
     <div class="term-header">
       <h3 class="term-name">subjects</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge optional">optional</span>
       </div>
     </div>
@@ -1322,7 +1356,7 @@
     <div class="term-header">
       <h3 class="term-name">titles</h3>
       <div class="term-badges">
-        <span class="badge type">object</span>
+        <span class="badge type">array</span> <span class="badge type">object</span>
         <span class="badge required">required</span>
       </div>
     </div>

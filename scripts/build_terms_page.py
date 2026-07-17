@@ -120,19 +120,30 @@ def format_type(schema_node: dict) -> str:
     items = schema_node.get("items", {})
     type_val = items.get("type") if items else schema_node.get("type")
 
+    # print("node id")
+    # print(schema_node.get("$id"))
+    # print(schema_node.get("type"))
+
+
     if not type_val:
+        print("not type_val")
         return badge("object", "type")
 
     if isinstance(type_val, list):
         types    = [t for t in type_val if t != "null"]
+        if schema_node.get("type") == "array":
+            types = ["array"] + types
         nullable = "null" in type_val
     else:
         types    = [type_val]
+        if schema_node.get("type") == "array":
+            types = ["array"] + types
         nullable = False
 
     out = " ".join(badge(t, "type") for t in types)
     if nullable:
         out += " " + badge("nullable", "nullable")
+   
     return out
 
 
@@ -361,6 +372,45 @@ def build_project_metadata_section(
                     indent       = 1,
                 ))
                 anchors.append(anchor)
+            continue
+        
+        # Array of objects (e.g. identifiers)
+        if defn.get("type") == "array":
+            # look for object in types
+            items = defn.get("items", {})
+            type_val = items.get("type")
+            print("in array of objects")
+            print(name)
+            if "object" in type_val:
+                # Render parent card
+                cards.append(render_term(
+                    anchor_id    = name,
+                    display_name = name,
+                    definition   = defn,
+                    source_key   = "project_metadata",
+                    is_required  = name in required,
+                    base_uri     = BASE_URI_METADATA,
+                ))
+                anchors.append(name)
+
+                # Render each sub-property as an indented card
+                ## get required properties from items
+                sub_required = items.get("required", [])
+                
+                print("about to create sub cards")
+                print(items["properties"].items())
+                for sub_name, sub_defn in items["properties"].items():
+                    anchor = f"{name}-{sub_name}"
+                    cards.append(render_term(
+                        anchor_id    = anchor,
+                        display_name = f"{name}.{sub_name}",
+                        definition   = sub_defn,
+                        source_key   = "project_metadata",
+                        is_required  = sub_name in sub_required,
+                        base_uri     = BASE_URI_METADATA,
+                        indent       = 1,
+                    ))
+                    anchors.append(anchor)
             continue
 
         # $ref field — resolve and merge
